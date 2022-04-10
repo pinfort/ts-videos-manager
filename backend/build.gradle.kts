@@ -9,27 +9,62 @@ plugins {
 
 group = "me.pinfort"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
-repositories {
-	mavenCentral()
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
-dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "17"
+allprojects {
+	repositories {
+		mavenCentral()
 	}
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
+subprojects {
+	apply(plugin = "java")
+	apply(plugin = "kotlin")
+	apply(plugin = "kotlin-spring")
+	apply(plugin = "org.springframework.boot")
+	apply(plugin = "io.spring.dependency-management")
+
+	dependencies {
+		implementation(kotlin("stdlib"))
+		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+		implementation("org.jetbrains.kotlin:kotlin-reflect")
+		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+		testImplementation("org.springframework.boot:spring-boot-starter-test")
+	}
+
+	sourceSets {
+		main {
+			java.srcDir("src/main/kotlin")
+			resources.srcDir("src/main/resources")
+		}
+
+		test {
+			java.srcDir("src/test/kotlin")
+			resources.srcDir("src/test/resources")
+		}
+	}
+
+	tasks.bootJar {
+		enabled = false
+	}
+
+	tasks.jar {
+		enabled = false
+	}
+
+	tasks.withType<KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "17"
+		}
+	}
+
+	tasks.withType<Test> {
+		useJUnitPlatform()
+	}
 }

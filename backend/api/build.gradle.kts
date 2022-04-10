@@ -1,14 +1,12 @@
-plugins {
-    kotlin("jvm") version "1.6.20"
-}
-
-
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation(kotlin("stdlib"))
+    implementation(project(":infrastructure"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
+}
+
+tasks.bootJar {
+    enabled = true
+}
+
+tasks.jar {
+    enabled = true
 }

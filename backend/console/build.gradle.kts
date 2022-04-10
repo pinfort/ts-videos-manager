@@ -1,13 +1,11 @@
-plugins {
-    kotlin("jvm") version "1.6.20"
-}
-
-
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation(kotlin("stdlib"))
+    implementation(project(":infrastructure"))
+}
+
+tasks.bootJar {
+    enabled = true
+}
+
+tasks.jar {
+    enabled = true
 }
