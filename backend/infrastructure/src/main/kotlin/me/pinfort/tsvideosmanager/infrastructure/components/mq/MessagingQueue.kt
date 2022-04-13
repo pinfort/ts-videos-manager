@@ -1,4 +1,4 @@
-package components.mq
+package me.pinfort.tsvideosmanager.infrastructure.components.mq
 
 interface MessagingQueue {
     fun connect() {}

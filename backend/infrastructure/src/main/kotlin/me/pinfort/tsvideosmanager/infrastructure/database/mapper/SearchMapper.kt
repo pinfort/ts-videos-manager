@@ -1,6 +1,6 @@
-package database.mapper
+package me.pinfort.tsvideosmanager.infrastructure.database.mapper
 
-import database.dto.ProgramDto
+import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
 

@@ -1,4 +1,4 @@
-package database.dto.converter
+package me.pinfort.tsvideosmanager.infrastructure.database.dto.converter
 
 import org.springframework.stereotype.Component
 
