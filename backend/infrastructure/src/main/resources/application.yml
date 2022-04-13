@@ -1,16 +1,1 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sampledb
-    username: ${DATABASE_USER_NAME}
-    password: ${DATABASE_PASSWORD}
-    validationQuery: SELECT 1
-    testOnBorrow: true
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      pool-name: ConnectionPool
-      leakDetectionThreshold: 5000
-      connection-test-query: SELECT 1
-      minimum-idle: 5
-      maximum-pool-size: 10
-      auto-commit: false
+spring.profiles.include: infrastructure

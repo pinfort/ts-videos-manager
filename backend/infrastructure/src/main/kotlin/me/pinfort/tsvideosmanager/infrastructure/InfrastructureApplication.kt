@@ -1,0 +1,6 @@
+package me.pinfort.tsvideosmanager.infrastructure
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+
+@SpringBootApplication
+class InfrastructureApplication

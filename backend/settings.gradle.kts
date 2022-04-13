@@ -1,2 +1,2 @@
-rootProject.name = "ts-videos-manager"
+rootProject.name = "tsvideosmanager"
 include("api", "console", "infrastructure")

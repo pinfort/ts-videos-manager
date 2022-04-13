@@ -6,6 +6,6 @@ tasks.bootJar {
     enabled = true
 }
 
-tasks.jar {
-    enabled = true
+springBoot {
+    mainClass.set("me.pinfort.tsvideosmanager.console.ConsoleApplication")
 }

@@ -15,6 +15,14 @@ java {
 	targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.bootJar {
+	enabled = false
+}
+
+tasks.jar {
+	enabled = false
+}
+
 allprojects {
 	repositories {
 		mavenCentral()
@@ -66,5 +74,9 @@ subprojects {
 
 	tasks.withType<Test> {
 		useJUnitPlatform()
+	}
+
+	tasks.withType<Copy> {
+		duplicatesStrategy = DuplicatesStrategy.INCLUDE
 	}
 }

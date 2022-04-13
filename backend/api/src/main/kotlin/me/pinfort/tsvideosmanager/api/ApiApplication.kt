@@ -1,4 +1,6 @@
+package me.pinfort.tsvideosmanager.api
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class ConsoleApplication
+class ApiApplication
