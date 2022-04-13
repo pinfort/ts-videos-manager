@@ -6,7 +6,3 @@ dependencies {
 tasks.bootJar {
     enabled = true
 }
-
-springBoot {
-    mainClass.set("me.pinfort.tsvideosmanager.api.ApiApplication")
-}
