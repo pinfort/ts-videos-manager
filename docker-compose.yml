@@ -32,7 +32,7 @@ services:
       retries: 3
   nginx:
     restart: always
-    image: nginx:1.16.1
+    build: ./frontend/
     ports:
       - "127.0.0.1:20003:80"
     volumes:
@@ -44,16 +44,6 @@ services:
       retries: 3
     depends_on:
       - backend
-  front:
-    restart: always
-    build: ./frontend/
-    ports:
-      - "127.0.0.1:3000:3000"
-    healthcheck:
-      test: ["CMD-SHELL", "curl --silent --fail 127.0.0.1:3000/ || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
   backend:
     restart: always
     build: ./backend/
