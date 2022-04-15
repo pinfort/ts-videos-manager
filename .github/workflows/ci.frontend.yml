@@ -6,6 +6,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   ci:
     runs-on: ubuntu-latest
