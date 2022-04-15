@@ -1,0 +1,20 @@
+name: frontend ci
+on: 
+  push:
+    paths:
+    - 'frontend/**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: install
+        run: yarn --check-files --frozen-lockfile --non-interactive
+      - name: test
+        run: yarn test
