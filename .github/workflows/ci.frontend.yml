@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: '16'
       - name: install
-        run: yarn --check-files --frozen-lockfile --non-interactive
+        run: yarn --check-files --frozen-lockfile --non-interactive\
+      - name: lint
+        run: yarn lint
       - name: test
         run: yarn test
