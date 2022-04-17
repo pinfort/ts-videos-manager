@@ -6,11 +6,13 @@ import org.apache.ibatis.annotations.Select
 
 @Mapper
 interface SearchMapper {
-    @Select("""
+    @Select(
+        """
         SELECT
             1
         FROM
             program
-    """)
+    """
+    )
     fun select(): List<ProgramDto>
 }
