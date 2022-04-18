@@ -17,7 +17,7 @@ interface ProgramMapper {
         FROM
             program
         WHERE
-            name LIKE '%' || #{name} || '%'
+            name LIKE CONCAT('%', #{name}, '%')
     """
     )
     fun selectByName(name: String): List<ProgramDto>
