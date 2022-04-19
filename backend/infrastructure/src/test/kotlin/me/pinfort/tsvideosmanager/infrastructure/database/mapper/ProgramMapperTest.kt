@@ -28,7 +28,7 @@ class ProgramMapperTest {
     @Nested
     inner class SelectByNameTest {
         @Test
-        fun multiple() {
+        fun single() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
             connection.prepareStatement(
@@ -49,7 +49,6 @@ class ProgramMapperTest {
             connection.commit()
 
             val actual = programMapper.selectByName("test")
-            println(actual)
 
             Assertions.assertThat(actual.size).isEqualTo(1)
 
@@ -62,5 +61,74 @@ class ProgramMapperTest {
                 )
             )
         }
+
+        @Test
+        fun multiple() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'atest',2,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'testa',3,'REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            val actual = programMapper.selectByName("test")
+
+            Assertions.assertThat(actual.size).isEqualTo(3)
+
+            Assertions.assertThat(actual[0]).isEqualTo(
+                ProgramDto(
+                    1,
+                    "test",
+                    1,
+                    ProgramDto.Status.REGISTERED,
+                )
+            )
+
+            Assertions.assertThat(actual[1]).isEqualTo(
+                ProgramDto(
+                    2,
+                    "atest",
+                    2,
+                    ProgramDto.Status.REGISTERED,
+                )
+            )
+
+            Assertions.assertThat(actual[2]).isEqualTo(
+                ProgramDto(
+                    3,
+                    "testa",
+                    3,
+                    ProgramDto.Status.REGISTERED,
+                )
+            )
+        }
+
+        @Test
+        fun none() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.commit()
+
+            val actual = programMapper.selectByName("test")
+
+            Assertions.assertThat(actual.size).isEqualTo(0)
+        }
+    }
+
+    @Nested
+    inner class FindTest {
+
     }
 }
