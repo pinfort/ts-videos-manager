@@ -1,9 +1,8 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/${DATABASE_NAME:localdatabase}
-    username: ${DATABASE_USER_NAME:localtest}
-    password: ${DATABASE_PASSWORD:localtest}
+    url: ${DATABASE_CONNECTION:jdbc:tc:mariadb:10.7:///?TC_INITSCRIPT=ddl/create_database.sql}
+    username: ${DATABASE_USER_NAME:test}
+    password: ${DATABASE_PASSWORD:test}
     validationQuery: SELECT 1
     testOnBorrow: true
     type: com.zaxxer.hikari.HikariDataSource
