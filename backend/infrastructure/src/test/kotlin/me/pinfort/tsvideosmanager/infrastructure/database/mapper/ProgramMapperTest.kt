@@ -201,5 +201,16 @@ class ProgramMapperTest {
 
             Assertions.assertThat(programMapper.find(1)).isNull()
         }
+
+        @Test
+        fun none() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.commit()
+
+            programMapper.deleteById(1)
+
+            Assertions.assertThat(programMapper.find(1)).isNull()
+        }
     }
 }
