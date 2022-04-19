@@ -129,6 +129,77 @@ class ProgramMapperTest {
 
     @Nested
     inner class FindTest {
+        @Test
+        fun single() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
+            """
+            ).execute()
+            connection.commit()
 
+            val actual = programMapper.find(1)
+
+            Assertions.assertThat(actual).isEqualTo(
+                ProgramDto(
+                    1,
+                    "test",
+                    1,
+                    ProgramDto.Status.REGISTERED,
+                )
+            )
+        }
+
+        @Test
+        fun none() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.commit()
+
+            val actual = programMapper.find(1)
+
+            Assertions.assertThat(actual).isNull()
+        }
+    }
+
+    @Nested
+    inner class DeleteByIdTest {
+        @Test
+        fun one() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
+            """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            programMapper.deleteById(1)
+
+            Assertions.assertThat(programMapper.find(1)).isNull()
+        }
     }
 }
