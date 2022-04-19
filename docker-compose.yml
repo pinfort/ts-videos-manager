@@ -12,7 +12,7 @@ services:
       - "127.0.0.1:3306:3306"
     volumes:
       - ./docker/data/db:/var/lib/mysql
-      - ./docker/ddl:/docker-entrypoint-initdb.d
+      - ./backend/ddl/infrastructure/src/test/resources/ddl:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "-u", "root", "-P", "root", "ping"]
       interval: 10s
