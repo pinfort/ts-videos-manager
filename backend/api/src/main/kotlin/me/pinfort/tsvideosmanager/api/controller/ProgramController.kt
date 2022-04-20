@@ -27,7 +27,7 @@ class ProgramController(
 
     @GetMapping("/api/v1/programs/{id}")
     fun get(@PathVariable(name = "id") id: Int): Program {
-        return programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=${id}")
+        return programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=$id")
     }
 
     @DeleteMapping("/api/v1/programs/{id}")
