@@ -1,4 +1,5 @@
-CREATE TABLE `executed_file` (
+DROP TABLE IF EXISTS `test`.`executed_file`;
+CREATE TABLE `test`.`executed_file` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `file` text COLLATE utf8mb4_bin NOT NULL,
  `drops` int(11) NOT NULL,
@@ -13,7 +14,8 @@ CREATE TABLE `executed_file` (
  UNIQUE KEY `file` (`file`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `splitted_file` (
+DROP TABLE IF EXISTS `test`.`splitted_file`;
+CREATE TABLE `test`.`splitted_file` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `executed_file_id` bigint(20) NOT NULL,
  `file` text COLLATE utf8mb4_bin NOT NULL,
@@ -25,7 +27,8 @@ CREATE TABLE `splitted_file` (
  KEY `executed_file_id` (`executed_file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `created_file` (
+DROP TABLE IF EXISTS `test`.`created_file`;
+CREATE TABLE `test`.`created_file` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `splitted_file_id` bigint(20) NOT NULL,
  `file` text COLLATE utf8mb4_bin NOT NULL,
@@ -38,7 +41,8 @@ CREATE TABLE `created_file` (
  KEY `splitted_file_id` (`splitted_file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `program` (
+DROP TABLE IF EXISTS `test`.`program`;
+CREATE TABLE `test`.`program` (
  `id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
  `name` varchar(255) NOT NULL,
  `executed_file_id` bigint(20) NOT NULL,

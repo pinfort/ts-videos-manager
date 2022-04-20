@@ -18,9 +18,13 @@ interface ProgramMapper {
             program
         WHERE
             name LIKE CONCAT('%', #{name}, '%')
+        LIMIT
+            #{limit}
+        OFFSET
+            #{offset}
     """
     )
-    fun selectByName(name: String): List<ProgramDto>
+    fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<ProgramDto>
 
     @Select(
         """
