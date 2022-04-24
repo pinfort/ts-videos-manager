@@ -1,8 +1,5 @@
 name: backend ci
 on: 
-  push:
-    paths:
-    - 'backend/**'
   pull_request:
     types: [opened, synchronize, reopened]
 
