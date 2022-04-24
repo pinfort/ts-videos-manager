@@ -1,8 +1,5 @@
 name: frontend ci
 on: 
-  push:
-    paths:
-    - 'frontend/**'
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -18,8 +15,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: 'yarn'
+          cache-dependency-path: 'frontend/yarn.lock'
       - name: install
-        run: yarn --check-files --frozen-lockfile --non-interactive\
+        run: yarn --check-files --frozen-lockfile --non-interactive
       - name: lint
         run: yarn lint
       - name: test
