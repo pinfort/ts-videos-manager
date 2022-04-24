@@ -17,9 +17,6 @@ function App() {
               name
             </TableContentCell>
             <TableContentCell>
-              executedFileId
-            </TableContentCell>
-            <TableContentCell>
               status
             </TableContentCell>
           </ProgramsTableContentRow>
