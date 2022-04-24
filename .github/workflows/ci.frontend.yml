@@ -18,7 +18,7 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'frontend/yarn.lock'
       - name: install
-        run: yarn --check-files --frozen-lockfile --non-interactive\
+        run: yarn --check-files --frozen-lockfile --non-interactive
       - name: lint
         run: yarn lint
       - name: test
