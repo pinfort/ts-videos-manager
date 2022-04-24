@@ -16,7 +16,8 @@ plugins:
   - react
   - '@typescript-eslint'
   - 'import'
-rules: {}
+rules:
+  'no-empty-interface': 'off'
 overrides:
   - files:
       - '*.ts'

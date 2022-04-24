@@ -1,23 +1,29 @@
 import React from 'react';
-import logo from '../../asset/image/logo.svg';
 import './App.scss';
+import { ProgramsTable } from './ui/block/ProgramsTable/programsTable';
+import { ProgramsTableContentRow } from './ui/block/ProgramsTable/programsRow';
+import { TableContentCell } from '../../ui/component/table/cell';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <ProgramsTable>
+          <ProgramsTableContentRow>
+            <TableContentCell>
+              id
+            </TableContentCell>
+            <TableContentCell>
+              name
+            </TableContentCell>
+            <TableContentCell>
+              executedFileId
+            </TableContentCell>
+            <TableContentCell>
+              status
+            </TableContentCell>
+          </ProgramsTableContentRow>
+        </ProgramsTable>
       </header>
     </div>
   );
