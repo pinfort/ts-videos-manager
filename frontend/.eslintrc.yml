@@ -16,7 +16,10 @@ plugins:
   - react
   - '@typescript-eslint'
   - 'import'
-rules: {}
+rules:
+  '@typescript-eslint/no-empty-interface':
+    - "error"
+    - "allowSingleExtends": true
 overrides:
   - files:
       - '*.ts'
