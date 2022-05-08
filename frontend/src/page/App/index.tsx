@@ -3,11 +3,16 @@ import './App.scss';
 import { ProgramsTable } from './ui/block/ProgramsTable/programsTable';
 import { ProgramsTableContentRow } from './ui/block/ProgramsTable/programsRow';
 import { TableContentCell } from '../../ui/component/table/cell';
+import { SearchForm } from './ui/block/searchForm/searchForm';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header>
+        <SearchForm/>
+      </header>
+      <p>
         <ProgramsTable>
           <ProgramsTableContentRow>
             <TableContentCell>
@@ -21,7 +26,7 @@ function App() {
             </TableContentCell>
           </ProgramsTableContentRow>
         </ProgramsTable>
-      </header>
+      </p>
     </div>
   );
 }

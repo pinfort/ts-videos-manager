@@ -20,6 +20,8 @@ rules:
   '@typescript-eslint/no-empty-interface':
     - "error"
     - "allowSingleExtends": true
+  'import/prefer-default-export': 'off'
+  jsx-a11y/label-has-associated-control: 'off'
 overrides:
   - files:
       - '*.ts'
