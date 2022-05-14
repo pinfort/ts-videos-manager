@@ -22,6 +22,7 @@ rules:
     - "allowSingleExtends": true
   'import/prefer-default-export': 'off'
   jsx-a11y/label-has-associated-control: 'off'
+  '@typescript-eslint/no-misused-promises': 'off'
 overrides:
   - files:
       - '*.ts'
