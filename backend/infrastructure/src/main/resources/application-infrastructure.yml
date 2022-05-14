@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_CONNECTION:jdbc:tc:mariadb:10.7:///?TC_INITSCRIPT=ddl/create_database.sql}
+    url: ${DATABASE_CONNECTION:jdbc:tc:mariadb:10.7:///?TC_INITSCRIPT=ddl/01_create_database.sql}
     username: ${DATABASE_USER_NAME:test}
     password: ${DATABASE_PASSWORD:test}
     validationQuery: SELECT 1
