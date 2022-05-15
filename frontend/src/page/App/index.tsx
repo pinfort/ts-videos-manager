@@ -8,6 +8,7 @@ import { TableContentCell } from '../../ui/component/table/cell';
 import { SearchForm } from './ui/block/searchForm/searchForm';
 import { apiComponent } from '../../components/api';
 import { ISearchedPrograms } from '../../components/api/response/searchedPrograms';
+import { ContentPager } from '../../ui/block/pager/pager';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -44,6 +45,9 @@ function App() {
           ))}
         </ProgramsTable>
       </p>
+      <footer>
+        <ContentPager forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} />
+      </footer>
     </div>
   );
 }
