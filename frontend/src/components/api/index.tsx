@@ -5,7 +5,7 @@ import { ISearchedPrograms } from './response/searchedPrograms';
 export class Api {
   public async getPrograms(query: string): Promise<ISearchedPrograms> {
     const url = new URL(ApiConfiguration.programsUrl);
-    url.searchParams.set('q', query);
+    url.searchParams.set('name', query);
     const response = await api.get<ISearchedPrograms>(url.toString());
     return response.data;
   }

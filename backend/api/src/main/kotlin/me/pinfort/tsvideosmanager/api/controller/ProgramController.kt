@@ -1,6 +1,7 @@
 package me.pinfort.tsvideosmanager.api.controller
 
 import me.pinfort.tsvideosmanager.api.exception.ProgramNotFoundException
+import me.pinfort.tsvideosmanager.api.response.SearchResponse
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -21,8 +22,10 @@ class ProgramController(
         @RequestParam(name = "name", required = false, defaultValue = "") name: String,
         @RequestParam(name = "limit", required = false, defaultValue = "100") @Max(100) @Positive limit: Int,
         @RequestParam(name = "offset", required = false, defaultValue = "0") @PositiveOrZero offset: Int,
-    ): List<Program> {
-        return programCommand.selectByName(name, limit, offset)
+    ): SearchResponse {
+        return SearchResponse(
+            programCommand.selectByName(name, limit, offset)
+        )
     }
 
     @GetMapping("/api/v1/programs/{id}")

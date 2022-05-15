@@ -1,9 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 
 export class ApiConfiguration {
-  public static readonly rootUrl: string = '/api/v1';
+  public static readonly applicationHost: string =
+    process.env.REACT_APP_APPLICATION_HOST ?? 'http://localhost:8080';
 
-  public static readonly programsUrl: string = `${ApiConfiguration.rootUrl  }/programs`;
+  public static readonly rootUrl: string = `${ApiConfiguration.applicationHost}/api/v1`;
+
+  public static readonly programsUrl: string = `${ApiConfiguration.rootUrl}/programs`;
 }
 
 function apiFactory(): AxiosInstance {

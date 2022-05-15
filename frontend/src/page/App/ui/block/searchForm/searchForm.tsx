@@ -6,16 +6,16 @@ import { ContentLabel } from '../../../../../ui/component/form/label';
 
 export type SearchFormProps = {
   onChange: (value: string) => void
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onSubmit: () => void;
 };
 
-export function SearchForm({ onChange, onClick }: SearchFormProps): JSX.Element {
+export function SearchForm({ onChange, onSubmit }: SearchFormProps): JSX.Element {
   return (
-        <ContentForm action='/' method='get'>
+        <ContentForm onSubmit={onSubmit}>
             <ContentLabel>
                 <SearchInput name='q' onChange={onChange}/>
             </ContentLabel>
-            <ContentButton type='button' onClick={onClick}>
+            <ContentButton type='submit'>
                 検索
             </ContentButton>
         </ContentForm>
