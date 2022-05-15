@@ -35,10 +35,6 @@ function App() {
         <SearchForm onChange={setQuery} onSubmit={executeSearch}/>
       </header>
       <p>
-        offset {offset}
-        limit {limit}
-      </p>
-      <p>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
             <ProgramsTableContentRow>
