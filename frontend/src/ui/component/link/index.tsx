@@ -5,13 +5,14 @@ export type LinkProps = {
   className?: string;
   style?: React.CSSProperties;
   href: string;
+  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
 export interface Link extends JSX.Element {}
 
-export function ContentLink({ children, className, style, href }: LinkProps): Link {
+export function ContentLink({ children, className, style, href, onClick }: LinkProps): Link {
   return (
-          <a className={className} style={style} href={href}>
+          <a className={className} style={style} href={href} onClick={onClick}>
               {children}
           </a>
   );
