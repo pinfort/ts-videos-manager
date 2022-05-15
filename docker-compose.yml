@@ -35,6 +35,8 @@ services:
     build: ./frontend/
     ports:
       - "127.0.0.1:20003:80"
+    environment:
+      REACT_APP_APPLICATION_HOST: http://localhost:20003
     volumes:
       - ./docker/config/nginx:/etc/nginx/conf.d
     healthcheck:

@@ -16,13 +16,13 @@ function App() {
   async function executeSearch() {
     await apiComponent.getPrograms(query).then((response) => {
       setSearchedPrograms(response);
-    }).then();
+    });
   }
 
   return (
     <div className="App">
       <header>
-        <SearchForm onChange={setQuery} onClick={executeSearch}/>
+        <SearchForm onChange={setQuery} onSubmit={executeSearch}/>
       </header>
       <p>
         <ProgramsTable>
@@ -33,6 +33,9 @@ function App() {
               </TableContentCell>
               <TableContentCell>
                 {program.name}
+              </TableContentCell>
+              <TableContentCell>
+                {program.executedFileId}
               </TableContentCell>
               <TableContentCell>
                 {program.status}
