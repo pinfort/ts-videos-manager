@@ -12,7 +12,7 @@ import { ContentPager } from '../../ui/block/pager/pager';
 
 function App() {
   const [query, setQuery] = useState('');
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
   const [searchedPrograms, setSearchedPrograms] = useState<ISearchedPrograms>({ programs:[] });
 

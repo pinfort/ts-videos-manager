@@ -36,7 +36,7 @@ export function ContentPager({ className, style, forwardLink, backwardLink, link
   return (
       <>
         <ContentPagerForward href={forwardLink} className={className} style={style} onClick={(e)=>{e.preventDefault();onClick(setOffset, Math.max(offset - limit, 0));}} />
-        {getPagerNumbers(links, setOffset, limit, className, style)}
+        {/* {getPagerNumbers(links, setOffset, limit, className, style)} */}
         <ContentPagerBackward href={backwardLink} className={className} style={style} onClick={(e)=>{e.preventDefault();onClick(setOffset, offset + limit);}} />
       </>
   );
