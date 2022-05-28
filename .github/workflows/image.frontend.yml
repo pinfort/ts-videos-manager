@@ -6,10 +6,6 @@ on:
       - 'main'
       - 'feature/build-image'
 
-defaults:
-  run:
-    working-directory: frontend
-
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -30,6 +26,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: pinfort/ts-videos-manager-frontend:latest
