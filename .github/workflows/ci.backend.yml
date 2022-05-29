@@ -24,4 +24,4 @@ jobs:
       - name: Ktlint
         run: ./gradlew ktlintCheck
       - name: test
-        run: ./gradlew test --stacktrace
+        run: ./gradlew test --stacktrace --debug
