@@ -1,4 +1,4 @@
-FROM openjdk:17.0-jdk
+FROM openjdk:11-jdk
 
 COPY . .
 
