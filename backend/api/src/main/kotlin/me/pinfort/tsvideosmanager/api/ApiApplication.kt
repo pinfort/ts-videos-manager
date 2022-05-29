@@ -6,13 +6,9 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication(
     scanBasePackages = [
-        "me.pinfort.tsvideosmanager",
+        "me.pinfort.tsvideosmanager.api",
+        "me.pinfort.tsvideosmanager.infrastructure",
     ],
-)
-@EntityScan(
-    basePackages = [
-        "me.pinfort.tsvideosmanager",
-    ]
 )
 class ApiApplication
 
