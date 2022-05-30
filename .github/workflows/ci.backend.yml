@@ -20,7 +20,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon --stacktrace --info -x test
+        run: ./gradlew build --no-daemon -x test
       - name: Ktlint
         run: ./gradlew ktlintCheck
       - name: test
