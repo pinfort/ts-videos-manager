@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 export class ApiConfiguration {
-  public static readonly applicationHost: string = window.location.host ?? 'http://localhost:8080';
+  public static readonly applicationHost: string = `http://${window.location.host}` ?? 'http://localhost:8080';
 
   public static readonly rootUrl: string = `${ApiConfiguration.applicationHost}/api/v1`;
 
