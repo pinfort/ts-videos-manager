@@ -15,3 +15,7 @@ dependencies {
     testImplementation("org.testcontainers:mariadb")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 }
+
+tasks.jar {
+    enabled = true
+}
