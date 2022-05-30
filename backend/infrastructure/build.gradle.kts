@@ -9,10 +9,10 @@ dependencyManagement {
 dependencies {
     apply(plugin = "java-library")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    api("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.2.2")
-    testApi("org.testcontainers:junit-jupiter")
-    testApi("org.testcontainers:mariadb")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:mariadb")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 }
 
