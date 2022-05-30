@@ -5,8 +5,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication(
     scanBasePackages = [
-        "me.pinfort.tsvideosmanager.api",
-        "me.pinfort.tsvideosmanager.infrastructure",
+        "me.pinfort.tsvideosmanager",
     ],
 )
 class ApiApplication

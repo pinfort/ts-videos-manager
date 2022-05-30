@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk
+FROM openjdk:17.0-jdk
 
 COPY . .
 
@@ -6,4 +6,4 @@ RUN chmod +x gradlew
 RUN ./gradlew build -x test
 RUN ./gradlew api:bootJar
 
-CMD ["java", "-jar", "./api/build/libs/api.jar"]
+CMD ["./gradlew", "api:BootRun"]
