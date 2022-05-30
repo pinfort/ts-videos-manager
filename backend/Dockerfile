@@ -6,4 +6,4 @@ RUN chmod +x gradlew
 RUN ./gradlew build -x test
 RUN ./gradlew api:bootJar
 
-CMD ["./gradlew", "api:BootRun"]
+CMD ["java", "-jar", "./api/build/libs/api.jar"]
