@@ -4,7 +4,7 @@ ENV NODE_ENV production
 WORKDIR /opt/app
 
 COPY package.json yarn.lock ./
-RUN yarn install --prod --pure-lockfile
+RUN yarn install --pure-lockfile
 
 COPY . .
 RUN yarn build
