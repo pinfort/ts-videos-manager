@@ -1,9 +1,12 @@
 FROM node:16.14-slim as build
+ENV NODE_ENV production
 
 WORKDIR /opt/app
-COPY . .
 
-RUN yarn install --pure-lockfile
+COPY package.json yarn.lock ./
+RUN yarn install --prod --pure-lockfile
+
+COPY . .
 RUN yarn build
 
 FROM nginx:1.21
