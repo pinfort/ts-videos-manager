@@ -10,14 +10,17 @@ interface ProgramMapper {
     @Select(
         """
         SELECT
-            id,
-            name,
-            executed_file_id,
-            status
+            pg.id,
+            pg.name,
+            pg.executed_file_id,
+            pg.status,
+            ex.drops
         FROM
-            program
+            program pg
+            LEFT OUTER JOIN executed_file ex
+                ON pg.executed_file_id = ex.id
         WHERE
-            name LIKE CONCAT('%', #{name}, '%')
+            pg.name LIKE CONCAT('%', #{name}, '%')
         LIMIT
             #{limit}
         OFFSET
@@ -29,14 +32,17 @@ interface ProgramMapper {
     @Select(
         """
             SELECT
-                id,
-                name,
-                executed_file_id,
-                status
+                pg.id,
+                pg.name,
+                pg.executed_file_id,
+                pg.status,
+                ex.drops
             FROM
-                program
+                program pg
+                LEFT OUTER JOIN executed_file ex
+                    ON pg.executed_file_id = ex.id
             WHERE
-                id = #{id}
+                pg.id = #{id}
         """
     )
     fun find(id: Int): ProgramDto?
