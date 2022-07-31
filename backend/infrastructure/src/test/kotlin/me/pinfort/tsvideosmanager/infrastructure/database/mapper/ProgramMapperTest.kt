@@ -58,6 +58,7 @@ class ProgramMapperTest {
             connection.commit()
 
             val actual = programMapper.selectByName("test")
+            connection.close()
 
             Assertions.assertThat(actual.size).isEqualTo(1)
 
@@ -101,12 +102,13 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
-                    VALUES(2,'filepath',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
+                    VALUES(2,'filepath2',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
             connection.commit()
 
             val actual = programMapper.selectByName("test")
+            connection.close()
 
             Assertions.assertThat(actual.size).isEqualTo(3)
 
@@ -149,6 +151,7 @@ class ProgramMapperTest {
             connection.commit()
 
             val actual = programMapper.selectByName("test")
+            connection.close()
 
             Assertions.assertThat(actual.size).isEqualTo(0)
         }
@@ -176,15 +179,16 @@ class ProgramMapperTest {
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
             """
             ).execute()
-            connection.commit()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
                     VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
+            connection.commit()
 
             val actual = programMapper.find(1)
+            connection.close()
 
             Assertions.assertThat(actual).isEqualTo(
                 ProgramDto(
@@ -205,6 +209,7 @@ class ProgramMapperTest {
             connection.commit()
 
             val actual = programMapper.find(1)
+            connection.close()
 
             Assertions.assertThat(actual).isNull()
         }
@@ -237,6 +242,7 @@ class ProgramMapperTest {
             programMapper.deleteById(1)
 
             Assertions.assertThat(programMapper.find(1)).isNull()
+            connection.close()
         }
 
         @Test
@@ -248,6 +254,7 @@ class ProgramMapperTest {
             programMapper.deleteById(1)
 
             Assertions.assertThat(programMapper.find(1)).isNull()
+            connection.close()
         }
     }
 }
