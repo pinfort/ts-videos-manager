@@ -52,7 +52,7 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
-                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
             connection.commit()
@@ -95,13 +95,13 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
-                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
-                    VALUES(2,'filepath',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                    VALUES(2,'filepath',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
             connection.commit()
@@ -180,7 +180,7 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
-                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
                 """.trimIndent()
             ).execute()
 
