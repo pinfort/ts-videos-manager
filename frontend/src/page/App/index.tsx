@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <SearchForm onChange={setQuery} onSubmit={executeSearch}/>
+        <SearchForm onChange={setQuery} onSubmit={() => {setOffset(0);}}/>
       </header>
       <p>
         <ProgramsTable>
