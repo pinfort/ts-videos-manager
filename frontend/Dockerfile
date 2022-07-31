@@ -2,7 +2,7 @@ FROM node:16.14-slim as build
 
 WORKDIR /opt/app
 
-COPY package.json yarn.lock tsconfig.json ./
+COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile
 
 COPY . .
