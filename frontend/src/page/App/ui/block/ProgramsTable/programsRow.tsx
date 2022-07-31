@@ -23,9 +23,9 @@ export function ProgramsTableHeaderRow(): ProgramsRow {
             <TableHeaderCell>
                 status
             </TableHeaderCell>
-            <TableContentCell>
+            <TableHeaderCell>
                 drops
-            </TableContentCell>
+            </TableHeaderCell>
         </TableContentRow>
   );
 }
