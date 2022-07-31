@@ -5,6 +5,7 @@ data class Program(
     val name: String,
     val executedFileId: Int,
     val status: Status,
+    val drops: Int?,
 ) {
     enum class Status {
         REGISTERED,

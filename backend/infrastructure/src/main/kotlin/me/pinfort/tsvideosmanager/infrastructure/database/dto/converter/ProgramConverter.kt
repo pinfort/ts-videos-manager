@@ -13,7 +13,8 @@ class ProgramConverter(
             id = dto.id,
             name = dto.name,
             executedFileId = dto.executedFileId,
-            status = programStatusConverter.convert(dto.status)
+            status = programStatusConverter.convert(dto.status),
+            drops = dto.drops,
         )
     }
 }

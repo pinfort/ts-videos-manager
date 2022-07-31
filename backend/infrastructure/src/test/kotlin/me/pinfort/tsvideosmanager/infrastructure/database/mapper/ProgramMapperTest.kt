@@ -33,6 +33,7 @@ class ProgramMapperTest {
         fun single() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
@@ -48,6 +49,12 @@ class ProgramMapperTest {
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
             """
             ).execute()
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                """.trimIndent()
+            ).execute()
             connection.commit()
 
             val actual = programMapper.selectByName("test")
@@ -60,6 +67,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
+                    0,
                 )
             )
         }
@@ -68,6 +76,7 @@ class ProgramMapperTest {
         fun multiple() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
@@ -83,6 +92,18 @@ class ProgramMapperTest {
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'testa',3,'REGISTERED');
             """
             ).execute()
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                """.trimIndent()
+            ).execute()
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(2,'filepath',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                """.trimIndent()
+            ).execute()
             connection.commit()
 
             val actual = programMapper.selectByName("test")
@@ -95,6 +116,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
+                    0,
                 )
             )
 
@@ -104,6 +126,7 @@ class ProgramMapperTest {
                     "atest",
                     2,
                     ProgramDto.Status.REGISTERED,
+                    100,
                 )
             )
 
@@ -113,6 +136,7 @@ class ProgramMapperTest {
                     "testa",
                     3,
                     ProgramDto.Status.REGISTERED,
+                    null,
                 )
             )
         }
@@ -121,6 +145,7 @@ class ProgramMapperTest {
         fun none() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.commit()
 
             val actual = programMapper.selectByName("test")
@@ -135,6 +160,7 @@ class ProgramMapperTest {
         fun single() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
@@ -151,6 +177,12 @@ class ProgramMapperTest {
             """
             ).execute()
             connection.commit()
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,SPLITTED);
+                """.trimIndent()
+            ).execute()
 
             val actual = programMapper.find(1)
 
@@ -160,6 +192,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
+                    0,
                 )
             )
         }
@@ -168,6 +201,7 @@ class ProgramMapperTest {
         fun none() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.commit()
 
             val actual = programMapper.find(1)
@@ -182,6 +216,7 @@ class ProgramMapperTest {
         fun one() {
             val connection = dataSource.connection
             connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
