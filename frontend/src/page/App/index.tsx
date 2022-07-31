@@ -32,7 +32,13 @@ function App() {
   return (
     <div className="App">
       <header>
-        <SearchForm onChange={setQuery} onSubmit={() => {setOffset(0);}}/>
+        <SearchForm onChange={setQuery} onSubmit={async () => {
+          const currentOffset = offset;
+          setOffset(0);
+          if (currentOffset === 0) {
+            await executeSearch();
+          }
+        }}/>
       </header>
       <p>
         <ProgramsTable>
