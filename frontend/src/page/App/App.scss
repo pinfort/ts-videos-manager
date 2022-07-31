@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.App-pager-wrapper {
+  display: inline-flex;
+}
+
+.App-pager-button {
+  color: navy;
+  border-color: lightblue;
+  background-color: aliceblue;
+  border-width: 1px;
+  border-radius: 20%;
+  display: block;
+  border-style: solid;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  margin-top: 0.25rem;
+}
