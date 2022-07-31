@@ -3,7 +3,7 @@ ENV NODE_ENV production
 
 WORKDIR /opt/app
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock tsconfig.json ./
 RUN yarn install --pure-lockfile
 
 COPY . .
