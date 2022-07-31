@@ -1,1 +1,9 @@
 node_modules/
+build/
+.git/
+.env
+.eslintignore
+.eslintrc.yml
+.pretteirignore
+.prettierrc.json
+yarn-error.log*
