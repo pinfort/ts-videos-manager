@@ -32,9 +32,16 @@ function App() {
   return (
     <div className="App">
       <header>
-        <SearchForm onChange={setQuery} onSubmit={executeSearch}/>
+        <SearchForm onChange={setQuery} onSubmit={async () => {
+          const currentOffset = offset;
+          setOffset(0);
+          // もともとoffsetが0だった場合、offsetが変化せずexecuteSearchが自動実行されないので手動で行う
+          if (currentOffset === 0) {
+            await executeSearch();
+          }
+        }}/>
       </header>
-      <p>
+      <main>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
             <ProgramsTableContentRow>
@@ -53,7 +60,7 @@ function App() {
             </ProgramsTableContentRow>
           ))}
         </ProgramsTable>
-      </p>
+      </main>
       <footer>
         <ContentPager forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset}/>
       </footer>
