@@ -36,6 +36,8 @@ export function ContentPager({ className, style, forwardLink, backwardLink, link
   return (
       <>
         <ContentPagerForward href={forwardLink} className={className} style={style} onClick={(e)=>{e.preventDefault();onClick(setOffset, Math.max(offset - limit, 0));}} />
+        {/* 現在のページ数を表示 */}
+        <span className={className}>{offset === 0 ? 1 : Math.ceil(offset / limit) + 1}</span>
         {/* {getPagerNumbers(links, setOffset, limit, className, style)} */}
         <ContentPagerBackward href={backwardLink} className={className} style={style} onClick={(e)=>{e.preventDefault();onClick(setOffset, offset + limit);}} />
       </>

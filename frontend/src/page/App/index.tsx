@@ -61,8 +61,8 @@ function App() {
           ))}
         </ProgramsTable>
       </main>
-      <footer>
-        <ContentPager forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset}/>
+      <footer className='App-pager-wrapper'>
+        <ContentPager className='App-pager-button' forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset}/>
       </footer>
     </div>
   );
