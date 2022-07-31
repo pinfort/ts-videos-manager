@@ -57,6 +57,9 @@ function App() {
               <TableContentCell>
                 {program.status}
               </TableContentCell>
+              <TableContentCell>
+                {program.drops ?? -1}
+              </TableContentCell>
             </ProgramsTableContentRow>
           ))}
         </ProgramsTable>

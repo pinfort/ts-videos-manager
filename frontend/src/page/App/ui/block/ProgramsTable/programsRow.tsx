@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableHeaderCell, TableCell } from '../../../../../ui/component/table/cell';
+import { TableHeaderCell, TableCell, TableContentCell } from '../../../../../ui/component/table/cell';
 import { TableContentRow, TableRow } from '../../../../../ui/component/table/row';
 
 export type ProgramsTableContentRowProps = {
@@ -23,6 +23,9 @@ export function ProgramsTableHeaderRow(): ProgramsRow {
             <TableHeaderCell>
                 status
             </TableHeaderCell>
+            <TableContentCell>
+                drops
+            </TableContentCell>
         </TableContentRow>
   );
 }

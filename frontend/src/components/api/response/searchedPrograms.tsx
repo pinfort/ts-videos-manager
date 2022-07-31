@@ -7,6 +7,7 @@ export interface ISearchedProgram {
   name: string;
   executedFileId: number;
   status: SearchProgramsStatus;
+  drops: number | null;
 }
 
 export enum SearchProgramsStatus {
