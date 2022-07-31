@@ -35,6 +35,7 @@ function App() {
         <SearchForm onChange={setQuery} onSubmit={async () => {
           const currentOffset = offset;
           setOffset(0);
+          // もともとoffsetが0だった場合、offsetが変化せずexecuteSearchが自動実行されないので手動で行う
           if (currentOffset === 0) {
             await executeSearch();
           }
