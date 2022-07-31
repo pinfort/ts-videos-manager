@@ -41,7 +41,7 @@ function App() {
           }
         }}/>
       </header>
-      <p>
+      <main>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
             <ProgramsTableContentRow>
@@ -60,7 +60,7 @@ function App() {
             </ProgramsTableContentRow>
           ))}
         </ProgramsTable>
-      </p>
+      </main>
       <footer>
         <ContentPager forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset}/>
       </footer>
