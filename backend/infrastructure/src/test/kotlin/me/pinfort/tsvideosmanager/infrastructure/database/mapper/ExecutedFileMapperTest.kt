@@ -52,7 +52,7 @@ class ExecutedFileMapperTest {
                     file = "filepath",
                     drops = 0,
                     size = 2,
-                    recordedAt = LocalDateTime.of(2009,8,3,23,58,1),
+                    recordedAt = LocalDateTime.of(2009, 8, 3, 23, 58, 1),
                     channel = "BSxx",
                     title = "myTitle",
                     channelName = "myChannel",

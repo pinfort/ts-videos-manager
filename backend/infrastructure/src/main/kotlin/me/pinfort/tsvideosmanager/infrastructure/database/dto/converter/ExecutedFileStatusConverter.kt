@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class ExecutedFileStatusConverter {
     fun convert(status: ExecutedFileDto.Status): ExecutedFile.Status {
-        return when(status) {
+        return when (status) {
             ExecutedFileDto.Status.REGISTERED -> ExecutedFile.Status.REGISTERED
             ExecutedFileDto.Status.DROPCHECKED -> ExecutedFile.Status.DROPCHECKED
             ExecutedFileDto.Status.SPLITTED -> ExecutedFile.Status.SPLITTED
