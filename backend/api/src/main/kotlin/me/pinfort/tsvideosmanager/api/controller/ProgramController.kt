@@ -1,9 +1,9 @@
 package me.pinfort.tsvideosmanager.api.controller
 
 import me.pinfort.tsvideosmanager.api.exception.ProgramNotFoundException
+import me.pinfort.tsvideosmanager.api.response.ProgramDetailResponse
 import me.pinfort.tsvideosmanager.api.response.SearchResponse
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
-import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -29,8 +29,13 @@ class ProgramController(
     }
 
     @GetMapping("/api/v1/programs/{id}")
-    fun get(@PathVariable(name = "id") id: Int): Program {
-        return programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=$id")
+    fun get(@PathVariable(name = "id") id: Int): ProgramDetailResponse {
+        val program = programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=$id")
+        val videoFiles = programCommand.videoFiles(program)
+        return ProgramDetailResponse(
+            program = program,
+            videoFiles = videoFiles,
+        )
     }
 
     @DeleteMapping("/api/v1/programs/{id}")

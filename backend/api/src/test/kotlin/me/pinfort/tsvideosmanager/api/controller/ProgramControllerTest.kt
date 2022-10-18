@@ -1,5 +1,6 @@
 package me.pinfort.tsvideosmanager.api.controller
 
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -19,11 +20,24 @@ class ProgramControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
-    @Test
-    fun success() {
-        // andDo(print())でリクエスト・レスポンスを表示
-        mockMvc.perform(get("/api/v1/programs"))
-            .andDo(print())
-            .andExpect(status().isOk)
+    @Nested
+    inner class IndexTest {
+        @Test
+        fun success() {
+            // andDo(print())でリクエスト・レスポンスを表示
+            mockMvc.perform(get("/api/v1/programs"))
+                .andDo(print())
+                .andExpect(status().isOk)
+        }
+    }
+
+    @Nested
+    inner class DetailTest {
+        @Test
+        fun success() {
+            mockMvc.perform(get("/api/v1/programs/1"))
+                .andDo(print())
+                .andExpect(status().isOk)
+        }
     }
 }
