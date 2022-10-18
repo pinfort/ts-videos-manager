@@ -1,6 +1,6 @@
 export interface IProgramDetail {
   program: IProgram;
-  videoFiles: IVideoFile;
+  videoFiles: IVideoFile[];
 }
 
 export interface IProgram {
