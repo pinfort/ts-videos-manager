@@ -4,7 +4,6 @@ import me.pinfort.tsvideosmanager.api.exception.ProgramNotFoundException
 import me.pinfort.tsvideosmanager.api.response.ProgramDetailResponse
 import me.pinfort.tsvideosmanager.api.response.SearchResponse
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
-import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
