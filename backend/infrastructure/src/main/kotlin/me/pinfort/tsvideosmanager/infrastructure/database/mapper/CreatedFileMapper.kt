@@ -41,4 +41,23 @@ interface CreatedFileMapper {
         """
     )
     fun selectBySplittedFileId(splittedFileId: Int): List<CreatedFileDto>
+
+    @Select(
+        """
+            SELECT
+                created_file.id,
+                created_file.splitted_file_id,
+                created_file.file,
+                created_file.size,
+                created_file.mime,
+                created_file.encoding,
+                created_file.status
+            FROM
+                created_file
+            LEFT JOIN splitted_file
+            ON created_file.splitted_file_id = splitted_file.id
+            WHERE splitted_file.executed_file_id = #{executedFileId}
+        """
+    )
+    fun selectByExecutedFileId(executedFileId: Int): List<CreatedFileDto>
 }
