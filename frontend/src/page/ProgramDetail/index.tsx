@@ -104,9 +104,6 @@ function ProgramDetail() {
               <TableContentCell>
                 {videoFile.file}
               </TableContentCell>
-              <TableContentCell>
-                {videoFile.file}
-              </TableContentCell>
             </VideoFilesTableContentRow>
           ))}
         </VideoFilesTable>

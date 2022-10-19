@@ -5,7 +5,7 @@ import { TableContentRow, TableRow } from '../../../../../ui/component/table/row
 export interface ProgramDetailRow extends TableRow {}
 
 export type ProgramDetailTableContentRowProps = {
-  children: Iterable<TableCell>;
+  children: Iterable<TableCell> | TableCell;
 };
 
 export function VideoFilesTableHeaderRow(): ProgramDetailRow {
@@ -13,9 +13,6 @@ export function VideoFilesTableHeaderRow(): ProgramDetailRow {
         <TableContentRow className=''>
             <TableHeaderCell>
                 ファイル名
-            </TableHeaderCell>
-            <TableHeaderCell>
-                再生
             </TableHeaderCell>
         </TableContentRow>
   );
