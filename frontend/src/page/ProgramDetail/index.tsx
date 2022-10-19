@@ -24,9 +24,6 @@ function ProgramDetail() {
 
   const urlParams = useParams<{ id: string }>();
   const programId: number = parseInt(urlParams.id || '', 10);
-  if (Number.isNaN(programId)) {
-    return (<p>not found</p>);
-  }
 
   async function fetchProgramDetail() {
     await apiComponent.getProgramDetail(programId).then((response) => {
@@ -46,10 +43,12 @@ function ProgramDetail() {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    (async () => {
-      await fetchProgramDetail();
-    })();
+    if (!Number.isNaN(programId)) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      (async () => {
+        await fetchProgramDetail();
+      })();
+    }
   }, [programId]);
 
   return (
