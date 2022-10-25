@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './App.scss';
 import { ProgramsTable } from './ui/block/ProgramsTable/programsTable';
 import { ProgramsTableContentRow } from './ui/block/ProgramsTable/programsRow';
@@ -44,23 +45,25 @@ function App() {
       <main>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
-            <ProgramsTableContentRow>
-              <TableContentCell>
-                {program.id}
-              </TableContentCell>
-              <TableContentCell>
-                {program.name}
-              </TableContentCell>
-              <TableContentCell>
-                {program.executedFileId}
-              </TableContentCell>
-              <TableContentCell>
-                {program.status}
-              </TableContentCell>
-              <TableContentCell>
-                {program.drops ?? -1}
-              </TableContentCell>
-            </ProgramsTableContentRow>
+            <Link to={`programs/${program.id}`}>
+              <ProgramsTableContentRow>
+                <TableContentCell>
+                  {program.id}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.name}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.executedFileId}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.status}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.drops ?? -1}
+                </TableContentCell>
+              </ProgramsTableContentRow>
+            </Link>
           ))}
         </ProgramsTable>
       </main>
