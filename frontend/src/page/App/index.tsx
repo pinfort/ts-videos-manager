@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './App.scss';
 import { ProgramsTable } from './ui/block/ProgramsTable/programsTable';
 import { ProgramsTableContentRow } from './ui/block/ProgramsTable/programsRow';
@@ -9,7 +10,6 @@ import { SearchForm } from './ui/block/searchForm/searchForm';
 import { apiComponent } from '../../components/api';
 import { ISearchedPrograms } from '../../components/api/response/searchedPrograms';
 import { ContentPager } from '../../ui/block/pager/pager';
-import { Link } from 'react-router-dom';
 
 function App() {
   const [query, setQuery] = useState('');
