@@ -45,25 +45,25 @@ function App() {
       <main>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
-            <Link to={`programs/${program.id}`}>
-              <ProgramsTableContentRow>
-                <TableContentCell>
-                  {program.id}
-                </TableContentCell>
-                <TableContentCell>
+            <ProgramsTableContentRow>
+              <TableContentCell>
+                {program.id}
+              </TableContentCell>
+              <TableContentCell>
+                <Link to={`programs/${program.id}`}>
                   {program.name}
-                </TableContentCell>
-                <TableContentCell>
-                  {program.executedFileId}
-                </TableContentCell>
-                <TableContentCell>
-                  {program.status}
-                </TableContentCell>
-                <TableContentCell>
-                  {program.drops ?? -1}
-                </TableContentCell>
-              </ProgramsTableContentRow>
-            </Link>
+                </Link>
+              </TableContentCell>
+              <TableContentCell>
+                {program.executedFileId}
+              </TableContentCell>
+              <TableContentCell>
+                {program.status}
+              </TableContentCell>
+              <TableContentCell>
+                {program.drops ?? -1}
+              </TableContentCell>
+            </ProgramsTableContentRow>
           ))}
         </ProgramsTable>
       </main>
