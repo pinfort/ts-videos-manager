@@ -9,6 +9,7 @@ import { SearchForm } from './ui/block/searchForm/searchForm';
 import { apiComponent } from '../../components/api';
 import { ISearchedPrograms } from '../../components/api/response/searchedPrograms';
 import { ContentPager } from '../../ui/block/pager/pager';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -44,23 +45,25 @@ function App() {
       <main>
         <ProgramsTable>
           {searchedPrograms.programs.map((program) => (
-            <ProgramsTableContentRow>
-              <TableContentCell>
-                {program.id}
-              </TableContentCell>
-              <TableContentCell>
-                {program.name}
-              </TableContentCell>
-              <TableContentCell>
-                {program.executedFileId}
-              </TableContentCell>
-              <TableContentCell>
-                {program.status}
-              </TableContentCell>
-              <TableContentCell>
-                {program.drops ?? -1}
-              </TableContentCell>
-            </ProgramsTableContentRow>
+            <Link to={`programs/${program.id}`}>
+              <ProgramsTableContentRow>
+                <TableContentCell>
+                  {program.id}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.name}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.executedFileId}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.status}
+                </TableContentCell>
+                <TableContentCell>
+                  {program.drops ?? -1}
+                </TableContentCell>
+              </ProgramsTableContentRow>
+            </Link>
           ))}
         </ProgramsTable>
       </main>
