@@ -28,9 +28,9 @@ export interface IVideoFile {
 }
 
 export enum VideoFileStatus {
-  REGISTERED,
-  ENCODE_SUCCESS,
-  FILE_MOVED,
+  REGISTERED = 'REGISTERED',
+  ENCODE_SUCCESS = 'ENCODE_SUCCESS',
+  FILE_MOVED = 'FILE_MOVED',
 }
 
 export function programsStatusToJapanese(status: ProgramsStatus): string {
