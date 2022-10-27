@@ -12,9 +12,9 @@ export interface IProgram {
 }
 
 export enum ProgramsStatus {
-  REGISTERED,
-  COMPLETED,
-  ERROR,
+  REGISTERED = 'REGISTERED',
+  COMPLETED = 'COMPLETED',
+  ERROR = 'ERROR',
 }
 
 export interface IVideoFile {
@@ -28,13 +28,13 @@ export interface IVideoFile {
 }
 
 export enum VideoFileStatus {
-  REGISTERED,
-  ENCODE_SUCCESS,
-  FILE_MOVED,
+  REGISTERED = 'REGISTERED',
+  ENCODE_SUCCESS = 'ENCODE_SUCCESS',
+  FILE_MOVED = 'FILE_MOVED',
 }
 
 export function programsStatusToJapanese(status: ProgramsStatus): string {
-  switch (+status) {
+  switch (status) {
     case ProgramsStatus.REGISTERED:
       return '準備中';
     case ProgramsStatus.COMPLETED:
