@@ -32,3 +32,16 @@ export enum VideoFileStatus {
   ENCODE_SUCCESS,
   FILE_MOVED,
 }
+
+export function programsStatusToJapanese(status: ProgramsStatus): string {
+  switch (status) {
+    case ProgramsStatus.REGISTERED:
+      return '準備中';
+    case ProgramsStatus.COMPLETED:
+      return '録画済み';
+    case ProgramsStatus.ERROR:
+      return 'エラー';
+    default:
+      return '異常';
+  }
+}
