@@ -11,13 +11,13 @@ export interface ISearchedProgram {
 }
 
 export enum SearchProgramsStatus {
-  REGISTERED,
-  COMPLETED,
-  ERROR,
+  REGISTERED = 'REGISTERED',
+  COMPLETED = 'COMPLETED',
+  ERROR = 'ERROR',
 }
 
 export function searchProgramStatusToJapanese(status: SearchProgramsStatus): string {
-  switch (+status) {
+  switch (status) {
     case SearchProgramsStatus.REGISTERED:
       return '準備中';
     case SearchProgramsStatus.COMPLETED:
