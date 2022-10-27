@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { apiComponent } from '../../components/api';
-import { IProgramDetail, ProgramsStatus } from '../../components/api/response/programDetail';
+import { IProgramDetail, ProgramsStatus, programsStatusToJapanese } from '../../components/api/response/programDetail';
 import { TableContentCell } from '../../ui/component/table/cell';
 import { ProgramDetailTableContentRow } from './ui/block/programDetailTable/programDetailRow';
 import { ProgramDetailTable } from './ui/block/programDetailTable/programDetailTable';
@@ -84,7 +84,7 @@ function ProgramDetail() {
               状態
             </TableContentCell>
             <TableContentCell>
-              {ProgramsStatus[programDetail.program.status]}
+              {programsStatusToJapanese(programDetail.program.status)}
             </TableContentCell>
           </ProgramDetailTableContentRow>
           <ProgramDetailTableContentRow>
