@@ -17,7 +17,7 @@ export enum SearchProgramsStatus {
 }
 
 export function searchProgramStatusToJapanese(status: SearchProgramsStatus): string {
-  switch (status) {
+  switch (+status) {
     case SearchProgramsStatus.REGISTERED:
       return '準備中';
     case SearchProgramsStatus.COMPLETED:
