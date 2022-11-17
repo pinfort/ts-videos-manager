@@ -13,3 +13,8 @@ spring:
       minimum-idle: 5
       maximum-pool-size: 10
       auto-commit: false
+samba:
+  video-store-nas:
+    url: ${VIDEO_STORE_NAS_URL:}
+    username: ${VIDEO_STORE_NAS_USERNAME:pinfort}
+    password: ${VIDEO_STORE_NAS_PASSWORD:password}
