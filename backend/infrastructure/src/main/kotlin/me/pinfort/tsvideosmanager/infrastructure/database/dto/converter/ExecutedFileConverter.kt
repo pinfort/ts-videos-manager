@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ExecutedFileConverter(
-    val executedFileStatusConverter: ExecutedFileStatusConverter
+    val executedFileStatusConverter: ExecutedFileStatusConverter,
 ) {
     fun convert(dto: ExecutedFileDto): ExecutedFile {
         return ExecutedFile(
@@ -19,7 +19,7 @@ class ExecutedFileConverter(
             title = dto.title,
             channelName = dto.channelName,
             duration = dto.duration,
-            status = executedFileStatusConverter.convert(dto.status)
+            status = executedFileStatusConverter.convert(dto.status),
         )
     }
 }

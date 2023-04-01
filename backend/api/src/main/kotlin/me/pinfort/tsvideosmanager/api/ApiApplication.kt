@@ -13,12 +13,12 @@ import org.springframework.boot.runApplication
 @MapperScan(
     basePackages = [
         "me.pinfort.tsvideosmanager.infrastructure.database.mapper",
-    ]
+    ],
 )
 @ConfigurationPropertiesScan(
     basePackages = [
         "me.pinfort.tsvideosmanager.infrastructure.config",
-    ]
+    ],
 )
 class ApiApplication
 

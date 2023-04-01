@@ -36,8 +36,8 @@ class SambaClient(
     private fun baseContext(properties: Properties): BaseContext {
         return BaseContext(
             PropertyConfiguration(
-                properties
-            )
+                properties,
+            ),
         )
     }
 

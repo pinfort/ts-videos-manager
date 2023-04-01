@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ProgramConverter(
-    private val programStatusConverter: ProgramStatusConverter
+    private val programStatusConverter: ProgramStatusConverter,
 ) {
     fun convert(dto: ProgramDto): Program {
         return Program(

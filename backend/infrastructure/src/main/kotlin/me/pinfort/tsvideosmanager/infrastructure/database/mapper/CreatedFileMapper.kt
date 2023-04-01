@@ -20,7 +20,7 @@ interface CreatedFileMapper {
                 created_file
             WHERE
                 id = #{id}
-        """
+        """,
     )
     fun find(id: Int): CreatedFileDto?
 
@@ -38,7 +38,7 @@ interface CreatedFileMapper {
                 created_file
             WHERE
                 splitted_file_id = #{splittedFileId}
-        """
+        """,
     )
     fun selectBySplittedFileId(splittedFileId: Int): List<CreatedFileDto>
 
@@ -57,7 +57,7 @@ interface CreatedFileMapper {
             LEFT JOIN splitted_file
             ON created_file.splitted_file_id = splitted_file.id
             WHERE splitted_file.executed_file_id = #{executedFileId}
-        """
+        """,
     )
     fun selectByExecutedFileId(executedFileId: Int): List<CreatedFileDto>
 }

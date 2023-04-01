@@ -25,7 +25,7 @@ interface ProgramMapper {
             #{limit}
         OFFSET
             #{offset}
-    """
+    """,
     )
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<ProgramDto>
 
@@ -43,7 +43,7 @@ interface ProgramMapper {
                     ON pg.executed_file_id = ex.id
             WHERE
                 pg.id = #{id}
-        """
+        """,
     )
     fun find(id: Int): ProgramDto?
 
@@ -53,7 +53,7 @@ interface ProgramMapper {
                 program
             WHERE
                 id = #{id}
-        """
+        """,
     )
     fun deleteById(id: Int)
 }

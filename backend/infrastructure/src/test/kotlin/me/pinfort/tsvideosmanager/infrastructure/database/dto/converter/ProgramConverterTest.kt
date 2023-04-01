@@ -33,7 +33,7 @@ class ProgramConverterTest {
                 executedFileId = 3,
                 status = ProgramDto.Status.COMPLETED,
                 drops = 4,
-            )
+            ),
         )
 
         Assertions.assertThat(actual).isEqualTo(
@@ -43,7 +43,7 @@ class ProgramConverterTest {
                 executedFileId = 3,
                 status = Program.Status.COMPLETED,
                 drops = 4,
-            )
+            ),
         )
     }
 }

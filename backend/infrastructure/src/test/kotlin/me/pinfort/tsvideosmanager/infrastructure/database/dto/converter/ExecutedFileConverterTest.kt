@@ -39,7 +39,7 @@ class ExecutedFileConverterTest {
                 channelName = "7",
                 duration = 8.0,
                 status = ExecutedFileDto.Status.REGISTERED,
-            )
+            ),
         )
 
         Assertions.assertThat(actual).isEqualTo(
@@ -54,7 +54,7 @@ class ExecutedFileConverterTest {
                 channelName = "7",
                 duration = 8.0,
                 status = ExecutedFile.Status.REGISTERED,
-            )
+            ),
         )
     }
 }

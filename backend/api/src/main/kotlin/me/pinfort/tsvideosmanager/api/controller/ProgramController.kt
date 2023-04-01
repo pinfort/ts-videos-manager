@@ -19,12 +19,22 @@ class ProgramController(
 ) {
     @GetMapping("/api/v1/programs")
     fun index(
-        @RequestParam(name = "name", required = false, defaultValue = "") name: String,
-        @RequestParam(name = "limit", required = false, defaultValue = "100") @Max(100) @Positive limit: Int,
-        @RequestParam(name = "offset", required = false, defaultValue = "0") @PositiveOrZero offset: Int,
+        @RequestParam(name = "name", required = false, defaultValue = "")
+        name: String,
+        @RequestParam(name = "limit", required = false, defaultValue = "100")
+        @Max(100)
+        @Positive
+        limit: Int,
+        @RequestParam(name = "offset", required = false, defaultValue = "0")
+        @PositiveOrZero
+        offset: Int,
     ): SearchResponse {
         return SearchResponse(
-            programCommand.selectByName(name, limit, offset)
+            programCommand.selectByName(
+                name,
+                limit,
+                offset,
+            ),
         )
     }
 

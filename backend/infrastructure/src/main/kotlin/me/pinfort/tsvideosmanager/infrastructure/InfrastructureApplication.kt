@@ -11,6 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 @MapperScan(
     basePackages = [
         "me.pinfort.tsvideosmanager.infrastructure.database.mapper",
-    ]
+    ],
 )
 class InfrastructureApplication

@@ -23,7 +23,7 @@ interface ExecutedFileMapper {
                 executed_file
             WHERE
                 id = #{id}
-        """
+        """,
     )
     fun find(id: Int): ExecutedFileDto?
 }
