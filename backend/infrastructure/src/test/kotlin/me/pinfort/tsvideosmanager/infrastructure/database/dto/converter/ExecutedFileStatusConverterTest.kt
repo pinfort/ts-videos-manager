@@ -21,7 +21,7 @@ class ExecutedFileStatusConverterTest {
     @CsvSource(
         "REGISTERED,REGISTERED",
         "DROPCHECKED,DROPCHECKED",
-        "SPLITTED,SPLITTED",
+        "SPLITTED,SPLITTED"
     )
     @ParameterizedTest
     fun success(originalStatus: ExecutedFileDto.Status, status: ExecutedFile.Status) {

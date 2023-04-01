@@ -14,7 +14,7 @@ class ProgramConverter(
             name = dto.name,
             executedFileId = dto.executedFileId,
             status = programStatusConverter.convert(dto.status),
-            drops = dto.drops,
+            drops = dto.drops
         )
     }
 }

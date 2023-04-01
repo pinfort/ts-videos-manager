@@ -68,7 +68,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
+                    0
                 )
             )
         }
@@ -118,7 +118,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
+                    0
                 )
             )
 
@@ -128,7 +128,7 @@ class ProgramMapperTest {
                     "atest",
                     2,
                     ProgramDto.Status.REGISTERED,
-                    100,
+                    100
                 )
             )
 
@@ -138,7 +138,7 @@ class ProgramMapperTest {
                     "testa",
                     3,
                     ProgramDto.Status.REGISTERED,
-                    null,
+                    null
                 )
             )
         }
@@ -196,7 +196,7 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
+                    0
                 )
             )
         }

@@ -52,7 +52,7 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
+                    status = CreatedFileDto.Status.REGISTERED
                 )
             )
         }
@@ -95,7 +95,7 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
+                    status = CreatedFileDto.Status.REGISTERED
                 )
             )
         }
@@ -128,7 +128,7 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
+                    status = CreatedFileDto.Status.REGISTERED
                 )
             )
             Assertions.assertThat(actual[1]).isEqualTo(
@@ -139,7 +139,7 @@ class CreatedFileMapperTest {
                     size = 4,
                     mime = "test5",
                     encoding = "test6",
-                    status = CreatedFileDto.Status.ENCODE_SUCCESS,
+                    status = CreatedFileDto.Status.ENCODE_SUCCESS
                 )
             )
         }
@@ -188,7 +188,7 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
+                    status = CreatedFileDto.Status.REGISTERED
                 )
             )
         }
@@ -242,7 +242,7 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
+                    status = CreatedFileDto.Status.REGISTERED
                 )
             )
             Assertions.assertThat(actual[1]).isEqualTo(
@@ -253,7 +253,7 @@ class CreatedFileMapperTest {
                     size = 4,
                     mime = "test5",
                     encoding = "test6",
-                    status = CreatedFileDto.Status.ENCODE_SUCCESS,
+                    status = CreatedFileDto.Status.ENCODE_SUCCESS
                 )
             )
         }

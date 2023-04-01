@@ -57,7 +57,7 @@ class ExecutedFileMapperTest {
                     title = "myTitle",
                     channelName = "myChannel",
                     duration = 3.0,
-                    status = ExecutedFileDto.Status.SPLITTED,
+                    status = ExecutedFileDto.Status.SPLITTED
                 )
             )
         }

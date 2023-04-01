@@ -32,7 +32,7 @@ class ProgramConverterTest {
                 name = "2",
                 executedFileId = 3,
                 status = ProgramDto.Status.COMPLETED,
-                drops = 4,
+                drops = 4
             )
         )
 
@@ -42,7 +42,7 @@ class ProgramConverterTest {
                 name = "2",
                 executedFileId = 3,
                 status = Program.Status.COMPLETED,
-                drops = 4,
+                drops = 4
             )
         )
     }

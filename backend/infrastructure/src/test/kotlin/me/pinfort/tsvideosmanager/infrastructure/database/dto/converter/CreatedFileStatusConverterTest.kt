@@ -21,7 +21,7 @@ class CreatedFileStatusConverterTest {
     @CsvSource(
         "REGISTERED,REGISTERED",
         "ENCODE_SUCCESS,ENCODE_SUCCESS",
-        "FILE_MOVED,FILE_MOVED",
+        "FILE_MOVED,FILE_MOVED"
     )
     @ParameterizedTest
     fun success(originalStatus: CreatedFileDto.Status, status: CreatedFile.Status) {
