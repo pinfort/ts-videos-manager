@@ -6,11 +6,11 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "samba")
 data class SambaConfigurationProperties(
-    val videoStoreNas: Server,
+    val videoStoreNas: Server
 ) {
     data class Server(
         val url: String,
         val username: String,
-        val password: String,
+        val password: String
     )
 }

@@ -11,12 +11,12 @@ import java.util.Properties
 
 @Component
 class SambaClient(
-    private val sambaConfigurationProperties: SambaConfigurationProperties,
+    private val sambaConfigurationProperties: SambaConfigurationProperties
 ) {
     fun videoStoreNas(): SmbFile {
         val context = cifsContext(
             sambaConfigurationProperties.videoStoreNas.username,
-            sambaConfigurationProperties.videoStoreNas.password,
+            sambaConfigurationProperties.videoStoreNas.password
         )
         return connect(sambaConfigurationProperties.videoStoreNas.url, context)
     }
@@ -28,7 +28,7 @@ class SambaClient(
     private fun cifsContext(username: String, password: String): CIFSContext {
         val auth = NtlmPasswordAuthenticator(
             username,
-            password,
+            password
         )
         return baseContext(properties()).withCredentials(auth)
     }
@@ -36,8 +36,8 @@ class SambaClient(
     private fun baseContext(properties: Properties): BaseContext {
         return BaseContext(
             PropertyConfiguration(
-                properties,
-            ),
+                properties
+            )
         )
     }
 

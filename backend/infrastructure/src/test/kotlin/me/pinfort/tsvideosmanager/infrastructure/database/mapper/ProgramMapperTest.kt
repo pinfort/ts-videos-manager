@@ -37,23 +37,23 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
                     VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
-                """.trimIndent(),
+                """.trimIndent()
             ).execute()
             connection.commit()
 
@@ -68,8 +68,8 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
-                ),
+                    0
+                )
             )
         }
 
@@ -81,29 +81,29 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'atest',2,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'testa',3,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
                     VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
-                """.trimIndent(),
+                """.trimIndent()
             ).execute()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
                     VALUES(2,'filepath2',100,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
-                """.trimIndent(),
+                """.trimIndent()
             ).execute()
             connection.commit()
 
@@ -118,8 +118,8 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
-                ),
+                    0
+                )
             )
 
             Assertions.assertThat(actual[1]).isEqualTo(
@@ -128,8 +128,8 @@ class ProgramMapperTest {
                     "atest",
                     2,
                     ProgramDto.Status.REGISTERED,
-                    100,
-                ),
+                    100
+                )
             )
 
             Assertions.assertThat(actual[2]).isEqualTo(
@@ -138,8 +138,8 @@ class ProgramMapperTest {
                     "testa",
                     3,
                     ProgramDto.Status.REGISTERED,
-                    null,
-                ),
+                    null
+                )
             )
         }
 
@@ -167,23 +167,23 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                     INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
                     VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
-                """.trimIndent(),
+                """.trimIndent()
             ).execute()
             connection.commit()
 
@@ -196,8 +196,8 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0,
-                ),
+                    0
+                )
             )
         }
 
@@ -225,17 +225,17 @@ class ProgramMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
-            """,
+            """
             ).execute()
             connection.commit()
 

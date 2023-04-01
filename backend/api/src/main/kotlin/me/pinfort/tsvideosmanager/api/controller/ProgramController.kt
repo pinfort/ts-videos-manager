@@ -15,7 +15,7 @@ import javax.validation.constraints.PositiveOrZero
 
 @RestController
 class ProgramController(
-    private val programCommand: ProgramCommand,
+    private val programCommand: ProgramCommand
 ) {
     @GetMapping("/api/v1/programs")
     fun index(
@@ -27,14 +27,14 @@ class ProgramController(
         limit: Int,
         @RequestParam(name = "offset", required = false, defaultValue = "0")
         @PositiveOrZero
-        offset: Int,
+        offset: Int
     ): SearchResponse {
         return SearchResponse(
             programCommand.selectByName(
                 name,
                 limit,
-                offset,
-            ),
+                offset
+            )
         )
     }
 
@@ -44,7 +44,7 @@ class ProgramController(
         val videoFiles = programCommand.videoFiles(program)
         return ProgramDetailResponse(
             program = program,
-            videoFiles = videoFiles,
+            videoFiles = videoFiles
         )
     }
 

@@ -14,7 +14,7 @@ class ProgramCommand(
     private val programMapper: ProgramMapper,
     private val programConverter: ProgramConverter,
     private val createdFileMapper: CreatedFileMapper,
-    private val createdFileConverter: CreatedFileConverter,
+    private val createdFileConverter: CreatedFileConverter
 ) {
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<Program> {
         val programs: List<ProgramDto> = programMapper.selectByName(name, limit, offset)

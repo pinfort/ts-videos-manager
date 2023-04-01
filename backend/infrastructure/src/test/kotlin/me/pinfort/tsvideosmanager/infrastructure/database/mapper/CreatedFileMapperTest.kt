@@ -36,7 +36,7 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(1,2,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.commit()
 
@@ -52,8 +52,8 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
-                ),
+                    status = CreatedFileDto.Status.REGISTERED
+                )
             )
         }
 
@@ -79,7 +79,7 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(1,2,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.commit()
 
@@ -95,8 +95,8 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
-                ),
+                    status = CreatedFileDto.Status.REGISTERED
+                )
             )
         }
 
@@ -107,12 +107,12 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(1,2,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(2,2,'test4',4,'test5','test6','ENCODE_SUCCESS');
-            """,
+            """
             ).execute()
             connection.commit()
 
@@ -128,8 +128,8 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
-                ),
+                    status = CreatedFileDto.Status.REGISTERED
+                )
             )
             Assertions.assertThat(actual[1]).isEqualTo(
                 CreatedFileDto(
@@ -139,8 +139,8 @@ class CreatedFileMapperTest {
                     size = 4,
                     mime = "test5",
                     encoding = "test6",
-                    status = CreatedFileDto.Status.ENCODE_SUCCESS,
-                ),
+                    status = CreatedFileDto.Status.ENCODE_SUCCESS
+                )
             )
         }
 
@@ -167,12 +167,12 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(1,5,'test6',6,7.0,'COMPRESS_SAVED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,1,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.commit()
 
@@ -188,8 +188,8 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
-                ),
+                    status = CreatedFileDto.Status.REGISTERED
+                )
             )
         }
 
@@ -201,32 +201,32 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(1,5,'test6',6,7.0,'COMPRESS_SAVED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(2,5,'test7',6,7.0,'ENCODE_TASK_ADDED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(3,6,'test8',6,7.0,'COMPRESS_SAVED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,2,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(8,2,'test4',4,'test5','test6','ENCODE_SUCCESS');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(9,3,'test9',4,'test10','test11','ENCODE_SUCCESS');
-            """,
+            """
             ).execute()
             connection.commit()
 
@@ -242,8 +242,8 @@ class CreatedFileMapperTest {
                     size = 3,
                     mime = "test2",
                     encoding = "test3",
-                    status = CreatedFileDto.Status.REGISTERED,
-                ),
+                    status = CreatedFileDto.Status.REGISTERED
+                )
             )
             Assertions.assertThat(actual[1]).isEqualTo(
                 CreatedFileDto(
@@ -253,8 +253,8 @@ class CreatedFileMapperTest {
                     size = 4,
                     mime = "test5",
                     encoding = "test6",
-                    status = CreatedFileDto.Status.ENCODE_SUCCESS,
-                ),
+                    status = CreatedFileDto.Status.ENCODE_SUCCESS
+                )
             )
         }
 
@@ -266,12 +266,12 @@ class CreatedFileMapperTest {
             connection.prepareStatement(
                 """
                 INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(1,4,'test6',6,7.0,'COMPRESS_SAVED');
-            """,
+            """
             ).execute()
             connection.prepareStatement(
                 """
                 INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,1,'test',3,'test2','test3','REGISTERED');
-            """,
+            """
             ).execute()
             connection.commit()
 
