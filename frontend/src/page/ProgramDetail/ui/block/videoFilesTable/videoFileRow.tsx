@@ -14,6 +14,9 @@ export function VideoFilesTableHeaderRow(): ProgramDetailRow {
             <TableHeaderCell>
                 ファイル名
             </TableHeaderCell>
+            <TableHeaderCell>
+                視聴
+            </TableHeaderCell>
         </TableContentRow>
   );
 }

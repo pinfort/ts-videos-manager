@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { apiComponent } from '../../components/api';
-import { IProgramDetail, ProgramsStatus, programsStatusToJapanese } from '../../components/api/response/programDetail';
+import { IProgramDetail, IVideoFile, ProgramsStatus, programsStatusToJapanese } from '../../components/api/response/programDetail';
 import { TableContentCell } from '../../ui/component/table/cell';
 import { ProgramDetailTableContentRow } from './ui/block/programDetailTable/programDetailRow';
 import { ProgramDetailTable } from './ui/block/programDetailTable/programDetailTable';
 import { VideoFilesTableContentRow } from './ui/block/videoFilesTable/videoFileRow';
 import { VideoFilesTable } from './ui/block/videoFilesTable/videoFileTable';
+import { ReactNode } from 'react';
 
 function ProgramDetail() {
   const [programDetail, setProgramDetail] = useState<IProgramDetail>({
@@ -40,6 +41,32 @@ function ProgramDetail() {
         videoFiles: [],
       });
     });
+  }
+
+  function getVideoUri(videoFileId: number): string {
+    return `/video/${videoFileId}/view`;
+  }
+
+  function getVideoAnchor(videoFileId: number): ReactNode {
+    return (
+      <Link to={getVideoUri(videoFileId)}>
+        視聴
+      </Link>
+    );
+  }
+
+  function isViewableFile(videoFile: IVideoFile): boolean {
+    return videoFile.mime == "video/mp4"
+  }
+
+  function getViewButton(videoFile: IVideoFile): ReactNode {
+    if (isViewableFile(videoFile)) {
+      return getVideoAnchor(videoFile.id)
+    } else {
+      return (
+        <>動画ファイルでありません</>
+      )
+    }
   }
 
   useEffect(() => {
@@ -102,6 +129,9 @@ function ProgramDetail() {
             <VideoFilesTableContentRow>
               <TableContentCell>
                 {videoFile.file}
+              </TableContentCell>
+              <TableContentCell>
+                {getViewButton(videoFile)}
               </TableContentCell>
             </VideoFilesTableContentRow>
           ))}
