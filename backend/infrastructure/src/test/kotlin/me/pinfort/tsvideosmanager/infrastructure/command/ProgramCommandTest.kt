@@ -21,12 +21,16 @@ import org.junit.jupiter.api.Test
 class ProgramCommandTest {
     @MockK
     private lateinit var programMapper: ProgramMapper
+
     @MockK
     private lateinit var programConverter: ProgramConverter
+
     @MockK
     private lateinit var createdFileMapper: CreatedFileMapper
+
     @MockK
     private lateinit var createdFileConverter: CreatedFileConverter
+
     @InjectMockKs
     private lateinit var programCommand: ProgramCommand
 
@@ -35,14 +39,14 @@ class ProgramCommandTest {
         name = "name",
         executedFileId = 2,
         status = Program.Status.COMPLETED,
-        drops = 3,
+        drops = 3
     )
     private val programDto = ProgramDto(
         id = 1,
         name = "name",
         executedFileId = 2,
         status = ProgramDto.Status.COMPLETED,
-        drops = 3,
+        drops = 3
     )
     private val createdFileDto = CreatedFileDto(
         id = 1,
@@ -51,7 +55,7 @@ class ProgramCommandTest {
         size = 3,
         mime = "mime",
         encoding = "encoding",
-        status = CreatedFileDto.Status.ENCODE_SUCCESS,
+        status = CreatedFileDto.Status.ENCODE_SUCCESS
     )
     private val createdFile = CreatedFile(
         id = 1,
@@ -60,7 +64,7 @@ class ProgramCommandTest {
         size = 3,
         mime = "mime",
         encoding = "encoding",
-        status = CreatedFile.Status.ENCODE_SUCCESS,
+        status = CreatedFile.Status.ENCODE_SUCCESS
     )
 
     @BeforeEach
@@ -138,7 +142,7 @@ class ProgramCommandTest {
             every { createdFileConverter.convert(any()) } returns createdFile
 
             val testProgram = program.copy(
-                executedFileId = 1,
+                executedFileId = 1
             )
 
             val actual = programCommand.videoFiles(testProgram)
@@ -156,7 +160,7 @@ class ProgramCommandTest {
             every { createdFileMapper.selectByExecutedFileId(any()) } returns emptyList()
 
             val testProgram = program.copy(
-                executedFileId = 1,
+                executedFileId = 1
             )
 
             val actual = programCommand.videoFiles(testProgram)
