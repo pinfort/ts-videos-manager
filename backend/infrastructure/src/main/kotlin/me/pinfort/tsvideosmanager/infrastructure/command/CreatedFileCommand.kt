@@ -1,5 +1,6 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
+import jcifs.CIFSException
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.samba.client.SambaClient
@@ -22,7 +23,11 @@ class CreatedFileCommand(
 
     fun streamCreatedFile(id: Int): InputStream? {
         val createdFile: CreatedFile = findMp4File(id) ?: return null
-        return sambaClient.videoStoreNas()
-            .resolve(createdFile.file.replace('\\', '/')).openInputStream()
+        return try {
+            sambaClient.videoStoreNas()
+                .resolve(createdFile.file.replace('\\', '/')).openInputStream()
+        } catch (e: CIFSException) {
+            null
+        }
     }
 }

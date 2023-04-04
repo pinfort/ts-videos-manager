@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verifySequence
+import jcifs.smb.SmbException
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
@@ -143,6 +144,28 @@ class CreatedFileCommandTest {
             val actual = createdFileCommand.streamCreatedFile(1)
 
             Assertions.assertThat(actual).isEqualTo(testStream)
+
+            verifySequence {
+                createdFileMapper.find(1)
+                createdFileConverter.convert(createdFileDto)
+                sambaClient.videoStoreNas().resolve("test/")
+            }
+        }
+
+        @Test
+        fun noFile() {
+            val testCreatedFile = createdFile.copy(
+                mime = "video/mp4",
+                file = "test\\"
+            )
+            every { createdFileMapper.find(any()) } returns createdFileDto
+            every { createdFileConverter.convert(any()) } returns testCreatedFile
+
+            every { sambaClient.videoStoreNas().resolve(any()).openInputStream() } throws SmbException("err")
+
+            val actual = createdFileCommand.streamCreatedFile(1)
+
+            Assertions.assertThat(actual).isNull()
 
             verifySequence {
                 createdFileMapper.find(1)
