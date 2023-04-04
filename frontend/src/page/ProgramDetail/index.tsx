@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { apiComponent } from '../../components/api';
 import { IProgramDetail, IVideoFile, ProgramsStatus, programsStatusToJapanese } from '../../components/api/response/programDetail';
@@ -9,7 +9,6 @@ import { ProgramDetailTableContentRow } from './ui/block/programDetailTable/prog
 import { ProgramDetailTable } from './ui/block/programDetailTable/programDetailTable';
 import { VideoFilesTableContentRow } from './ui/block/videoFilesTable/videoFileRow';
 import { VideoFilesTable } from './ui/block/videoFilesTable/videoFileTable';
-import { ReactNode } from 'react';
 
 function ProgramDetail() {
   const [programDetail, setProgramDetail] = useState<IProgramDetail>({
@@ -56,17 +55,16 @@ function ProgramDetail() {
   }
 
   function isViewableFile(videoFile: IVideoFile): boolean {
-    return videoFile.mime == "video/mp4"
+    return videoFile.mime === 'video/mp4';
   }
 
   function getViewButton(videoFile: IVideoFile): ReactNode {
     if (isViewableFile(videoFile)) {
-      return getVideoAnchor(videoFile.id)
-    } else {
-      return (
-        <>動画ファイルでありません</>
-      )
+      return getVideoAnchor(videoFile.id);
     }
+    return (
+      <>動画ファイルでありません</>
+    );
   }
 
   useEffect(() => {
