@@ -14,4 +14,6 @@ data class CreatedFile(
         ENCODE_SUCCESS,
         FILE_MOVED
     }
+
+    val isMp4 = mime == "video/mp4"
 }

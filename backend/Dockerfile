@@ -1,5 +1,7 @@
 FROM openjdk:17.0-jdk
 
+RUN microdnf install findutils
+
 COPY . .
 
 RUN chmod +x gradlew
