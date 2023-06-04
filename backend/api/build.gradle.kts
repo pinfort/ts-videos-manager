@@ -1,7 +1,6 @@
 dependencies {
     implementation(project(":infrastructure"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.mybatis:mybatis-spring:2.0.7")
     testImplementation(project(":infrastructure"))
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mariadb")

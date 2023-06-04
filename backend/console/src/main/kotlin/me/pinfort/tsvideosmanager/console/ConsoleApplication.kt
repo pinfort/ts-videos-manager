@@ -1,6 +1,5 @@
 package me.pinfort.tsvideosmanager.console
 
-import org.mybatis.spring.annotation.MapperScan
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
@@ -9,11 +8,6 @@ import org.springframework.boot.runApplication
     scanBasePackages = [
         "me.pinfort.tsvideosmanager"
     ],
-)
-@MapperScan(
-    basePackages = [
-        "me.pinfort.tsvideosmanager.infrastructure.database.mapper"
-    ]
 )
 @ConfigurationPropertiesScan(
     basePackages = [
