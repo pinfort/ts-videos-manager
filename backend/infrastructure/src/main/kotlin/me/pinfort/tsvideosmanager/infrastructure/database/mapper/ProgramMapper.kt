@@ -20,7 +20,7 @@ interface ProgramMapper {
             LEFT OUTER JOIN executed_file ex
                 ON pg.executed_file_id = ex.id
         WHERE
-            pg.name LIKE CONCAT('%', #{name}, '%')
+            pg.name COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', #{name}, '%')
         LIMIT
             #{limit}
         OFFSET
