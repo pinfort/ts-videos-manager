@@ -1,1 +1,4 @@
-spring.profiles.include: console, infrastructure
+spring:
+  profiles.include: console, infrastructure
+  main:
+    web-application-type: none
