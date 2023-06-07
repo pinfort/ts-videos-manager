@@ -7,7 +7,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication(
     scanBasePackages = [
         "me.pinfort.tsvideosmanager"
-    ],
+    ]
 )
 @ConfigurationPropertiesScan(
     basePackages = [

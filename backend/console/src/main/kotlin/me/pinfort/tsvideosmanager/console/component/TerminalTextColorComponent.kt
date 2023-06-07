@@ -21,11 +21,11 @@ class TerminalTextColorComponent {
     }
 
     fun info(text: String): String {
-        return decorateString(text, COLOR.LIGHT_GREEN.code.toBackground())
+        return decorateString(text, COLOR.GREEN.code.toBackground())
     }
 
     fun warn(text: String): String {
-        return decorateString(text, COLOR.LIGHT_YELLOW.code)
+        return decorateString(text, COLOR.YELLOW.code.toBackground())
     }
 
     fun error(text: String): String {
@@ -55,6 +55,6 @@ class TerminalTextColorComponent {
         LIGHT_BLUE(94),
         LIGHT_MAGENTA(95),
         LIGHT_CYAN(96),
-        WHITE(97),
+        WHITE(97)
     }
 }

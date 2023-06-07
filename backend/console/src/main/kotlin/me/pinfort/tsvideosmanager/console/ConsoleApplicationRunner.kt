@@ -12,10 +12,10 @@ import kotlin.reflect.full.createInstance
 
 @OptIn(ExperimentalCli::class)
 @Component
-class ConsoleApplicationRunner: ApplicationRunner {
+class ConsoleApplicationRunner : ApplicationRunner {
     companion object {
         val subCommands: List<KClass<out Subcommand>> = listOf(
-            Search::class,
+            Search::class
         )
     }
 
