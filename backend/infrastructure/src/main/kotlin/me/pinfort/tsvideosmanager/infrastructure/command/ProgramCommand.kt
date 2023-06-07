@@ -29,4 +29,9 @@ class ProgramCommand(
     fun videoFiles(program: Program): List<CreatedFile> {
         return createdFileMapper.selectByExecutedFileId(program.executedFileId).map { createdFileConverter.convert(it) }
     }
+
+    fun hasTsFile(program: Program): Boolean {
+        createdFileMapper.selectByExecutedFileId(program.executedFileId).forEach { if (createdFileConverter.convert(it).isTs) { return true } }
+        return false
+    }
 }
