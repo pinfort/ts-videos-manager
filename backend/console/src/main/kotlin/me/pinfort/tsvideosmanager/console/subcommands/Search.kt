@@ -7,14 +7,13 @@ import kotlinx.cli.required
 import me.pinfort.tsvideosmanager.console.component.TerminalTextColorComponent
 import me.pinfort.tsvideosmanager.infrastructure.command.ExecutedFileCommand
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
-import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalCli::class)
 class Search(
     private val programCommand: ProgramCommand,
     private val executedFileCommand: ExecutedFileCommand,
-    private val terminalTextColorComponent: TerminalTextColorComponent,
+    private val terminalTextColorComponent: TerminalTextColorComponent
 ) : Subcommand("search", "search programs") {
     val datetimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
 

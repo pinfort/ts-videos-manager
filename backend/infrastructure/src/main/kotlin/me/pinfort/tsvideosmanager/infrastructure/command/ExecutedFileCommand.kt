@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class ExecutedFileCommand(
     private val executedFileMapper: ExecutedFileMapper,
-    private val executedFileConverter: ExecutedFileConverter,
+    private val executedFileConverter: ExecutedFileConverter
 ) {
     fun find(id: Int): ExecutedFile? {
         return executedFileMapper.find(id)?.let { executedFileConverter.convert(it) }
