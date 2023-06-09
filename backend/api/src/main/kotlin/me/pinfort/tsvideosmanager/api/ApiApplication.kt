@@ -10,11 +10,6 @@ import org.springframework.boot.runApplication
         "me.pinfort.tsvideosmanager"
     ]
 )
-@MapperScan(
-    basePackages = [
-        "me.pinfort.tsvideosmanager.infrastructure.database.mapper"
-    ]
-)
 @ConfigurationPropertiesScan(
     basePackages = [
         "me.pinfort.tsvideosmanager.infrastructure.config"
