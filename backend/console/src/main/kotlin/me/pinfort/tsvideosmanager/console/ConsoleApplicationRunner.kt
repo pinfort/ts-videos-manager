@@ -3,6 +3,7 @@ package me.pinfort.tsvideosmanager.console
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
+import me.pinfort.tsvideosmanager.console.subcommands.Search
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
@@ -13,7 +14,9 @@ import kotlin.reflect.full.createInstance
 @Component
 class ConsoleApplicationRunner : ApplicationRunner {
     companion object {
-        val subCommands: List<KClass<out Subcommand>> = listOf()
+        val subCommands: List<KClass<out Subcommand>> = listOf(
+            Search::class
+        )
     }
 
     override fun run(args: ApplicationArguments?) {
