@@ -15,7 +15,7 @@ import kotlin.reflect.full.createInstance
 class ConsoleApplicationRunner : ApplicationRunner {
     companion object {
         val subCommands: List<KClass<out Subcommand>> = listOf(
-            Search::class,
+            Search::class
         )
     }
 
