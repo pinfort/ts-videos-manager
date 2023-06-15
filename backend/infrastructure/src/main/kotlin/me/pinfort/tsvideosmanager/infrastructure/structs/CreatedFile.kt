@@ -16,4 +16,6 @@ data class CreatedFile(
     }
 
     val isMp4 = mime == "video/mp4"
+
+    val isTs = mime == "video/vnd.dlna.mpeg-tts"
 }
