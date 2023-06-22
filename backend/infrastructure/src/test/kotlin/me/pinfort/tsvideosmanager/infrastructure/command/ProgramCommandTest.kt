@@ -4,6 +4,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import io.mockk.verifySequence
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
@@ -169,6 +170,42 @@ class ProgramCommandTest {
 
             verifySequence {
                 createdFileMapper.selectByExecutedFileId(1)
+            }
+        }
+    }
+
+    @Nested
+    inner class HasTs {
+        @Test
+        fun success() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()).isTs } returns true
+
+            val actual = programCommand.hasTsFile(program)
+
+            Assertions.assertThat(actual).isTrue
+        }
+
+        @Test
+        fun successNoTs() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()).isTs } returns false
+
+            val actual = programCommand.hasTsFile(program)
+
+            Assertions.assertThat(actual).isFalse
+        }
+
+        @Test
+        fun successNoResult() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf()
+
+            val actual = programCommand.hasTsFile(program)
+
+            Assertions.assertThat(actual).isFalse
+
+            verify(exactly = 0) {
+                createdFileConverter.convert(any())
             }
         }
     }
