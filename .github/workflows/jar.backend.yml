@@ -1,7 +1,8 @@
 name: backend jar generate
-on: 
-  pull_request:
-    types: [opened, synchronize, reopened]
+on:
+  push:
+    branches:
+      - 'main'
 
 defaults:
   run:
