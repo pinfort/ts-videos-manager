@@ -25,6 +25,6 @@ jobs:
       - name: upload jar
         uses: actions/upload-artifact@v3
         with:
-          name: ts-videos-manager.jar
+          name: ts-videos-manager
           path: backend/console/build/libs/console.jar
           retention-days: 5

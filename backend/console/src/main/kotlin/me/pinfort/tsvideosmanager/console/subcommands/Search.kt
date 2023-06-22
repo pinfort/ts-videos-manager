@@ -7,9 +7,11 @@ import kotlinx.cli.required
 import me.pinfort.tsvideosmanager.console.component.TerminalTextColorComponent
 import me.pinfort.tsvideosmanager.infrastructure.command.ExecutedFileCommand
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
+import org.springframework.stereotype.Component
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalCli::class)
+@Component
 class Search(
     private val programCommand: ProgramCommand,
     private val executedFileCommand: ExecutedFileCommand,
