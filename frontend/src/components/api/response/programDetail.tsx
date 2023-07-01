@@ -1,6 +1,5 @@
 export interface IProgramDetail {
   program: IProgram;
-  videoFiles: IVideoFile[];
 }
 
 export interface IProgram {
@@ -8,7 +7,14 @@ export interface IProgram {
   name: string;
   executedFileId: number;
   status: ProgramsStatus;
-  drops: number | null;
+  drops: number;
+  size: number;
+  recordedAt: string;
+  channel: string,
+  title: string,
+  channelName: string,
+  duration: number,
+  createdFiles: IVideoFile[],
 }
 
 export enum ProgramsStatus {

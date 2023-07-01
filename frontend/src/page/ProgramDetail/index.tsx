@@ -17,9 +17,15 @@ function ProgramDetail() {
       name:'loading...',
       executedFileId:1,
       status:ProgramsStatus.REGISTERED,
-      drops: null,
+      drops: 0,
+      size: 0,
+      recordedAt: '',
+      channel: '',
+      title: '',
+      channelName: '',
+      duration: 0,
+      createdFiles: [],
     },
-    videoFiles: [],
   });
 
   const urlParams = useParams<{ id: string }>();
@@ -35,9 +41,15 @@ function ProgramDetail() {
           name:'error...',
           executedFileId:0,
           status:ProgramsStatus.REGISTERED,
-          drops: null,
+          drops: 0,
+          size: 0,
+          recordedAt: '',
+          channel: '',
+          title: '',
+          channelName: '',
+          duration: 0,
+          createdFiles: [],
         },
-        videoFiles: [],
       });
     });
   }
@@ -123,7 +135,7 @@ function ProgramDetail() {
         </ProgramDetailTable>
         <hr/>
         <VideoFilesTable>
-          {programDetail.videoFiles.map((videoFile) => (
+          {programDetail.program.createdFiles.map((videoFile) => (
             <VideoFilesTableContentRow>
               <TableContentCell>
                 {videoFile.file}
