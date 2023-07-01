@@ -15,7 +15,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
-  const [searchedPrograms, setSearchedPrograms] = useState<ISearchedPrograms>({ programs:[] });
+  const [searchedPrograms, setSearchedPrograms] = useState<ISearchedPrograms>({ programs: [] });
 
   async function executeSearch() {
     await apiComponent.getPrograms(query, limit, offset).then((response) => {
@@ -40,7 +40,7 @@ function App() {
           if (currentOffset === 0) {
             await executeSearch();
           }
-        }}/>
+        }} />
       </header>
       <main>
         <ProgramsTable>
@@ -61,14 +61,14 @@ function App() {
                 {searchProgramStatusToJapanese(program.status)}
               </TableContentCell>
               <TableContentCell>
-                {program.drops ?? -1}
+                {program.drops}
               </TableContentCell>
             </ProgramsTableContentRow>
           ))}
         </ProgramsTable>
       </main>
       <footer className='App-pager-wrapper'>
-        <ContentPager className='App-pager-button' forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset}/>
+        <ContentPager className='App-pager-button' forwardLink='/' backwardLink='/' links={new Map<number, string>([[1, '/']])} offset={offset} limit={limit} setOffset={setOffset} />
       </footer>
     </div>
   );

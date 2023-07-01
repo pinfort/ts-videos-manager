@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.testcontainers.junit.jupiter.Testcontainers
+import java.time.LocalDateTime
 import javax.sql.DataSource
 
 @Testcontainers
@@ -68,7 +69,13 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0
+                    0,
+                    2,
+                    LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    "BSxx",
+                    "myTitle",
+                    "myChannel",
+                    3.0
                 )
             )
         }
@@ -118,7 +125,13 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0
+                    0,
+                    2,
+                    LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    "BSxx",
+                    "myTitle",
+                    "myChannel",
+                    3.0
                 )
             )
 
@@ -128,7 +141,13 @@ class ProgramMapperTest {
                     "atest",
                     2,
                     ProgramDto.Status.REGISTERED,
-                    100
+                    100,
+                    2,
+                    LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    "BSxx",
+                    "myTitle",
+                    "myChannel",
+                    3.0
                 )
             )
 
@@ -138,6 +157,12 @@ class ProgramMapperTest {
                     "testa",
                     3,
                     ProgramDto.Status.REGISTERED,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
                     null
                 )
             )
@@ -196,7 +221,13 @@ class ProgramMapperTest {
                     "test",
                     1,
                     ProgramDto.Status.REGISTERED,
-                    0
+                    0,
+                    2,
+                    LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    "BSxx",
+                    "myTitle",
+                    "myChannel",
+                    3.0
                 )
             )
         }

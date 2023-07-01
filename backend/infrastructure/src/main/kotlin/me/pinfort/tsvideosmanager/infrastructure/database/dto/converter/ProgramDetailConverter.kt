@@ -1,7 +1,7 @@
 package me.pinfort.tsvideosmanager.infrastructure.database.dto.converter
 
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
-import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDetailDto
+import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -11,7 +11,7 @@ class ProgramDetailConverter(
     private val programStatusConverter: ProgramStatusConverter,
     private val createdFileConverter: CreatedFileConverter
 ) {
-    fun convert(dto: ProgramDetailDto, createdFiles: List<CreatedFileDto>): ProgramDetail {
+    fun convert(dto: ProgramDto, createdFiles: List<CreatedFileDto>): ProgramDetail {
         return ProgramDetail(
             id = dto.id,
             name = dto.name,
