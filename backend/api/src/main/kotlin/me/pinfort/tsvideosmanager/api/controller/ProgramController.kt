@@ -38,9 +38,10 @@ class ProgramController(
     @GetMapping("/api/v1/programs/{id}")
     fun get(@PathVariable(name = "id") id: Int): ProgramDetailResponse {
         val program = programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=$id")
+        val programDetail = programCommand.findDetail(id) ?: throw ProgramNotFoundException("program not found. id=$id")
         val videoFiles = programCommand.videoFiles(program)
         return ProgramDetailResponse(
-            program = program,
+            program = programDetail,
             videoFiles = videoFiles
         )
     }
