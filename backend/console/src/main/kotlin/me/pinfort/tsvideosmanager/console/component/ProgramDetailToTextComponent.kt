@@ -19,9 +19,9 @@ class ProgramDetailToTextComponent {
         sb.appendLine("放送日時: ${programDetail.recordedAt.format(datetimeFormat)}")
         sb.appendLine("放送時間: ${programDetail.duration.minutes.toString(DurationUnit.MINUTES)}")
         sb.appendLine("ファイル: ${videoFiles.size}件")
-        sb.appendLine("mime\tname")
+        sb.appendLine("id\tmime\tname")
         videoFiles.forEach {
-            sb.appendLine("${it.mime}\t${it.file}")
+            sb.appendLine("${it.id}\t${it.mime}\t${it.file}")
         }
         return sb.toString()
     }
