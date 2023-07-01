@@ -1,13 +1,11 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
-import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDetailDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
-import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramDetailMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
@@ -20,7 +18,6 @@ class ProgramCommand(
     private val programConverter: ProgramConverter,
     private val createdFileMapper: CreatedFileMapper,
     private val createdFileConverter: CreatedFileConverter,
-    private val programDetailMapper: ProgramDetailMapper,
     private val programDetailConverter: ProgramDetailConverter
 ) {
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<Program> {
@@ -43,7 +40,7 @@ class ProgramCommand(
     }
 
     fun findDetail(id: Int): ProgramDetail? {
-        val program: ProgramDetailDto = programDetailMapper.find(id) ?: return null
+        val program: ProgramDto = programMapper.find(id) ?: return null
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
         return programDetailConverter.convert(program, createdFiles)
     }

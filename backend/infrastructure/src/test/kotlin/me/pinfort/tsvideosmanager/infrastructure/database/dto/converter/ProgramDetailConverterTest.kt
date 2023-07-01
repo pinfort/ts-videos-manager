@@ -5,7 +5,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
-import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDetailDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
@@ -56,7 +55,7 @@ class ProgramDetailConverterTest {
         every { createdFileConverter.convert(any()) } returns dummyCreatedFile
 
         val actual = programDetailConverter.convert(
-            ProgramDetailDto(
+            ProgramDto(
                 id = 1,
                 name = "2",
                 executedFileId = 3,
@@ -100,7 +99,7 @@ class ProgramDetailConverterTest {
         every { createdFileConverter.convert(any()) } returns dummyCreatedFile
 
         val actual = programDetailConverter.convert(
-            ProgramDetailDto(
+            ProgramDto(
                 id = 1,
                 name = "2",
                 executedFileId = 3,

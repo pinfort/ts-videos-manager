@@ -5,7 +5,6 @@ import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
 import kotlinx.cli.required
 import me.pinfort.tsvideosmanager.console.component.TerminalTextColorComponent
-import me.pinfort.tsvideosmanager.infrastructure.command.ExecutedFileCommand
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
 import org.springframework.stereotype.Component
 import java.time.format.DateTimeFormatter
@@ -14,7 +13,6 @@ import java.time.format.DateTimeFormatter
 @Component
 class Search(
     private val programCommand: ProgramCommand,
-    private val executedFileCommand: ExecutedFileCommand,
     private val terminalTextColorComponent: TerminalTextColorComponent
 ) : Subcommand("search", "search programs") {
     private val datetimeFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
@@ -27,9 +25,8 @@ class Search(
         val programs = programCommand.selectByName(programSearchName, 500, 0) // TODO: 全部JOINにしてSQL発行回数をなんとかする
         programs.forEach {
             val tsExists = programCommand.hasTsFile(it)
-            val executedFile = executedFileCommand.find(it.executedFileId) ?: return@forEach
-            val programInfo = "%d\t%s\t%s\t%d\t%b\t%s".format(it.id, datetimeFormat.format(executedFile.recordedAt), executedFile.channelName, it.drops ?: 0, tsExists, executedFile.title)
-            val decoratedProgramInfo = decorateProgramInfo(it.drops ?: -1, programInfo)
+            val programInfo = "%d\t%s\t%s\t%d\t%b\t%s".format(it.id, datetimeFormat.format(it.recordedAt), it.channelName, it.drops, tsExists, it.title)
+            val decoratedProgramInfo = decorateProgramInfo(it.drops, programInfo)
             println(decoratedProgramInfo)
         }
     }

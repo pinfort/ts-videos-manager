@@ -9,6 +9,7 @@ import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 
 class ProgramConverterTest {
     @MockK
@@ -32,7 +33,13 @@ class ProgramConverterTest {
                 name = "2",
                 executedFileId = 3,
                 status = ProgramDto.Status.COMPLETED,
-                drops = 4
+                drops = 4,
+                size = 5,
+                recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                channel = "channel",
+                title = "title",
+                channelName = "channelName",
+                duration = 6.0
             )
         )
 
@@ -42,7 +49,13 @@ class ProgramConverterTest {
                 name = "2",
                 executedFileId = 3,
                 status = Program.Status.COMPLETED,
-                drops = 4
+                drops = 4,
+                size = 5,
+                recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                channel = "channel",
+                title = "title",
+                channelName = "channelName",
+                duration = 6.0
             )
         )
     }

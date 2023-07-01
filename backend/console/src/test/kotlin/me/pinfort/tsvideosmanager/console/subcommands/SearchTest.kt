@@ -7,9 +7,7 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ExperimentalCli
 import me.pinfort.tsvideosmanager.console.component.TerminalTextColorComponent
-import me.pinfort.tsvideosmanager.infrastructure.command.ExecutedFileCommand
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
-import me.pinfort.tsvideosmanager.infrastructure.structs.ExecutedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -22,9 +20,6 @@ class SearchTest {
     private lateinit var programCommand: ProgramCommand
 
     @MockK
-    private lateinit var executedFileCommand: ExecutedFileCommand
-
-    @MockK
     private lateinit var terminalTextColorComponent: TerminalTextColorComponent
 
     @InjectMockKs
@@ -35,20 +30,13 @@ class SearchTest {
         name = "name",
         executedFileId = 2,
         status = Program.Status.REGISTERED,
-        drops = 3
-    )
-
-    private val dummyExecutedFile = ExecutedFile(
-        id = 1,
-        file = "file",
         drops = 2,
         size = 3,
         recordedAt = LocalDateTime.MIN,
         channel = "channel",
         title = "title",
         channelName = "channelName",
-        duration = 4.0,
-        status = ExecutedFile.Status.REGISTERED
+        duration = 4.0
     )
 
     @BeforeEach
@@ -62,7 +50,6 @@ class SearchTest {
         fun success() {
             every { programCommand.selectByName(any(), any(), any()) } returns listOf(dummyProgram)
             every { programCommand.hasTsFile(any()) } returns true
-            every { executedFileCommand.find(any()) } returns dummyExecutedFile
             every { terminalTextColorComponent.error(any()) } returns "1\t2023/01/01 00:00:00\tchannelName\t3\ttrue\ttitle"
             val parser = ArgParser("tsVideosManager")
             parser.subcommands(search)

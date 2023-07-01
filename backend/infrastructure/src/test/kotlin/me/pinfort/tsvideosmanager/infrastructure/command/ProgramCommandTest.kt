@@ -7,13 +7,11 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import io.mockk.verifySequence
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
-import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDetailDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
-import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramDetailMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
@@ -38,9 +36,6 @@ class ProgramCommandTest {
     private lateinit var createdFileConverter: CreatedFileConverter
 
     @MockK
-    private lateinit var programDetailMapper: ProgramDetailMapper
-
-    @MockK
     private lateinit var programDetailConverter: ProgramDetailConverter
 
     @InjectMockKs
@@ -51,14 +46,26 @@ class ProgramCommandTest {
         name = "name",
         executedFileId = 2,
         status = Program.Status.COMPLETED,
-        drops = 3
+        drops = 3,
+        size = 4,
+        recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+        channel = "channel",
+        title = "title",
+        channelName = "channelName",
+        duration = 5.0
     )
     private val programDto = ProgramDto(
         id = 1,
         name = "name",
         executedFileId = 2,
         status = ProgramDto.Status.COMPLETED,
-        drops = 3
+        drops = 3,
+        size = 4,
+        recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+        channel = "channel",
+        title = "title",
+        channelName = "channelName",
+        duration = 5.0
     )
     private val createdFileDto = CreatedFileDto(
         id = 1,
@@ -91,19 +98,6 @@ class ProgramCommandTest {
         channelName = "channelName",
         duration = 5.0,
         createdFiles = listOf(createdFile)
-    )
-    val programDetailDto = ProgramDetailDto(
-        id = 1,
-        name = "name",
-        executedFileId = 2,
-        status = ProgramDto.Status.COMPLETED,
-        drops = 3,
-        size = 4,
-        recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
-        channel = "channel",
-        title = "title",
-        channelName = "channelName",
-        duration = 5.0
     )
 
     @BeforeEach
@@ -252,7 +246,7 @@ class ProgramCommandTest {
     inner class FindDetailTest {
         @Test
         fun success() {
-            every { programDetailMapper.find(any()) } returns programDetailDto
+            every { programMapper.find(any()) } returns programDto
             every { programDetailConverter.convert(any(), any()) } returns programDetail
             every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
 
@@ -261,21 +255,21 @@ class ProgramCommandTest {
             Assertions.assertThat(actual).isEqualTo(programDetail)
 
             verifySequence {
-                programDetailMapper.find(1)
-                programDetailConverter.convert(programDetailDto, listOf(createdFileDto))
+                programMapper.find(1)
+                programDetailConverter.convert(programDto, listOf(createdFileDto))
             }
         }
 
         @Test
         fun noHit() {
-            every { programDetailMapper.find(any()) } returns null
+            every { programMapper.find(any()) } returns null
 
             val actual = programCommand.findDetail(1)
 
             Assertions.assertThat(actual).isNull()
 
             verifySequence {
-                programDetailMapper.find(1)
+                programMapper.find(1)
             }
         }
     }
