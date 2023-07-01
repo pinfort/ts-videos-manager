@@ -7,7 +7,13 @@ export interface ISearchedProgram {
   name: string;
   executedFileId: number;
   status: SearchProgramsStatus;
-  drops: number | null;
+  drops: number;
+  size: number;
+  recordedAt: string;
+  channel: string,
+  title: string,
+  channelName: string,
+  duration: number,
 }
 
 export enum SearchProgramsStatus {
