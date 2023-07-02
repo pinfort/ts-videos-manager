@@ -18,3 +18,7 @@ samba:
     url: ${VIDEO_STORE_NAS_URL:}
     username: ${VIDEO_STORE_NAS_USERNAME:pinfort}
     password: ${VIDEO_STORE_NAS_PASSWORD:password}
+  original-store-nas:
+    url: ${ORIGINAL_STORE_NAS_URL:}
+    username: ${ORIGINAL_STORE_NAS_USERNAME:pinfort}
+    password: ${ORIGINAL_STORE_NAS_PASSWORD:password}

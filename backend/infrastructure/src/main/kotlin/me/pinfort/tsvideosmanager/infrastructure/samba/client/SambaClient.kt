@@ -21,6 +21,14 @@ class SambaClient(
         return connect(sambaConfigurationProperties.videoStoreNas.url, context)
     }
 
+    fun originalStoreNas(): SmbFile {
+        val context = cifsContext(
+            sambaConfigurationProperties.originalStoreNas.username,
+            sambaConfigurationProperties.originalStoreNas.password
+        )
+        return connect(sambaConfigurationProperties.originalStoreNas.url, context)
+    }
+
     private fun connect(url: String, context: CIFSContext): SmbFile {
         return SmbFile(url, context)
     }
