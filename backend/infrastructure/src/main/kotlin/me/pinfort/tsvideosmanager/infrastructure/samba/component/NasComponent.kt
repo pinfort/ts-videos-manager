@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NasComponent(
-    private val sambaClient: SambaClient,
+    private val sambaClient: SambaClient
 ) {
     private val videoStoreNas = sambaClient.videoStoreNas()
     private val originalStoreNas = sambaClient.originalStoreNas()
