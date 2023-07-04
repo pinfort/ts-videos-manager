@@ -10,13 +10,29 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.testcontainers.containers.DockerComposeContainer
+import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import java.io.File
 
-@SpringBootTest
+@SpringBootTest(
+    properties = [
+        "samba.video-store-nas.url=smb://samba:139/alice",
+        "samba.video-store-nas.username=alice",
+        "samba.video-store-nas.password=alipass",
+        "samba.original-store-nas.url=smb://samba:139/bob",
+        "samba.original-store-nas.username=bob",
+        "samba.original-store-nas.password=bobpass"
+    ]
+)
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @AutoConfigureMockMvc
 class ProgramControllerTest {
+    @Container
+    var dockerComposeContainer: DockerComposeContainer<*> =
+        DockerComposeContainer(listOf(File("src/test/resources/docker-compose.yml")))
+
     @Autowired
     private lateinit var mockMvc: MockMvc
 
