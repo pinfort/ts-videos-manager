@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "samba")
 data class SambaConfigurationProperties(
-    val videoStoreNas: Server
+    val videoStoreNas: Server,
+    val originalStoreNas: Server
 ) {
     data class Server(
         val url: String,
