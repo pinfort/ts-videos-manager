@@ -19,16 +19,16 @@ class NasComponent(
         throw Exception("File not found, path=$file")
     }
 
-    fun deleteResource(file: String) {
+    fun deleteResource(file: String): SambaClient.NasType {
         val resource = videoStoreNas.resolve(file.replace('\\', '/'))
         if (resource.exists()) {
             resource.delete()
-            return
+            return SambaClient.NasType.VIDEO_STORE_NAS
         }
         val originalResource = originalStoreNas.resolve(file.replace('\\', '/'))
         if (originalResource.exists()) {
             originalResource.delete()
-            return
+            return SambaClient.NasType.ORIGINAL_STORE_NAS
         }
         throw Exception("File not found, path=$file")
     }
