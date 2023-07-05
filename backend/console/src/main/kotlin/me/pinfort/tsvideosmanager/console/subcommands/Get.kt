@@ -30,7 +30,7 @@ class Get(
                 println(programDetailToTextComponent.convertConsole(program))
             }
             ResourceType.EXECUTED_FILE -> {
-                val executedFile = executedFileCommand.find(id)
+                val executedFile = executedFileCommand.find(id) ?: return println("executedFile not found")
                 println(executedFile)
             }
         }
