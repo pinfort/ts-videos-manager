@@ -13,6 +13,11 @@ import java.util.Properties
 class SambaClient(
     private val sambaConfigurationProperties: SambaConfigurationProperties
 ) {
+    enum class NasType {
+        VIDEO_STORE_NAS,
+        ORIGINAL_STORE_NAS
+    }
+
     fun videoStoreNas(): SmbFile {
         val context = cifsContext(
             sambaConfigurationProperties.videoStoreNas.username,
