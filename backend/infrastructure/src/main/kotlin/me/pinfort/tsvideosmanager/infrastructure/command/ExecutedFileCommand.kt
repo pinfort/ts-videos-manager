@@ -13,4 +13,8 @@ class ExecutedFileCommand(
     fun find(id: Int): ExecutedFile? {
         return executedFileMapper.find(id)?.let { executedFileConverter.convert(it) }
     }
+
+    fun delete(executedFile: ExecutedFile) {
+        executedFileMapper.delete(executedFile.id)
+    }
 }
