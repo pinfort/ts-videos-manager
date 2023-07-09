@@ -64,7 +64,7 @@ class ProgramCommand(
         }
 
         createdFiles.forEach {
-            createdFileMapper.delete(it.id)
+            createdFileCommand.delete(createdFileConverter.convert(it))
             logger.info("Delete created file, id=${it.id}")
         }
 
