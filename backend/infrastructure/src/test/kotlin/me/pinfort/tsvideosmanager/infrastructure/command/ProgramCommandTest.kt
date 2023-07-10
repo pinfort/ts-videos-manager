@@ -13,6 +13,7 @@ import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramC
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
+import me.pinfort.tsvideosmanager.infrastructure.database.mapper.SplittedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
@@ -20,6 +21,7 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.slf4j.Logger
 import java.time.LocalDateTime
 
 class ProgramCommandTest {
@@ -37,6 +39,18 @@ class ProgramCommandTest {
 
     @MockK
     private lateinit var programDetailConverter: ProgramDetailConverter
+
+    @MockK
+    private lateinit var executedFileCommand: ExecutedFileCommand
+
+    @MockK
+    private lateinit var createdFileCommand: CreatedFileCommand
+
+    @MockK
+    private lateinit var splittedFileMapper: SplittedFileMapper
+
+    @MockK
+    private lateinit var logger: Logger
 
     @InjectMockKs
     private lateinit var programCommand: ProgramCommand

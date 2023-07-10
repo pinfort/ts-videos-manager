@@ -23,7 +23,7 @@ import java.io.File
         "samba.original-store-nas.url=smb://samba:139/bob",
         "samba.original-store-nas.username=bob",
         "samba.original-store-nas.password=bobpass",
-        "spring.datasource.url=jdbc:tc:mariadb:10.7:///?TC_INITSCRIPT=ddl/01_create_database.sql",
+        "spring.datasource.url=jdbc:tc:mariadb:10.7:///?TC_INITSCRIPT=ddl/01_create_database.sql"
     ]
 )
 @Testcontainers
