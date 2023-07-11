@@ -1,7 +1,7 @@
 dependencies {
     implementation(project(":infrastructure"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    testImplementation(project(":infrastructure").dependencyProject.sourceSets.test.get().output)
+    testImplementation(project(":infrastructure"))
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mariadb")
 }
