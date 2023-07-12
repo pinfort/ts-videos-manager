@@ -4,7 +4,9 @@ import jcifs.CIFSException
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.samba.client.SambaClient
+import me.pinfort.tsvideosmanager.infrastructure.samba.component.NasComponent
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
+import org.slf4j.Logger
 import org.springframework.stereotype.Component
 import java.io.InputStream
 
@@ -12,7 +14,9 @@ import java.io.InputStream
 class CreatedFileCommand(
     private val createdFileMapper: CreatedFileMapper,
     private val createdFileConverter: CreatedFileConverter,
-    private val sambaClient: SambaClient
+    private val sambaClient: SambaClient,
+    private val nasComponent: NasComponent,
+    private val logger: Logger
 ) {
     fun findMp4File(id: Int): CreatedFile? {
         val createdFile: CreatedFile = createdFileMapper.find(id)?.let { createdFileConverter.convert(it) } ?: return null
@@ -28,6 +32,16 @@ class CreatedFileCommand(
                 .resolve(createdFile.file.replace('\\', '/')).openInputStream()
         } catch (e: CIFSException) {
             null
+        }
+    }
+
+    fun delete(createdFile: CreatedFile): SambaClient.NasType {
+        return try {
+            createdFileMapper.delete(createdFile.id)
+            nasComponent.deleteResource(createdFile.file)
+        } catch (e: Exception) {
+            logger.error("Failed to delete file, id=${createdFile.id}, file=${createdFile.file}", e)
+            throw e
         }
     }
 }

@@ -1,6 +1,7 @@
 package me.pinfort.tsvideosmanager.infrastructure.database.mapper
 
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
+import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
 
@@ -60,4 +61,14 @@ interface CreatedFileMapper {
         """
     )
     fun selectByExecutedFileId(executedFileId: Int): List<CreatedFileDto>
+
+    @Delete(
+        """
+            DELETE FROM
+                created_file
+            WHERE
+                id = #{id}
+        """
+    )
+    fun delete(id: Int)
 }

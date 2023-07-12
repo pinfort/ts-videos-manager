@@ -10,11 +10,13 @@ import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.samba.client.SambaClient
+import me.pinfort.tsvideosmanager.infrastructure.samba.component.NasComponent
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.slf4j.Logger
 import java.io.InputStream
 
 class CreatedFileCommandTest {
@@ -26,6 +28,12 @@ class CreatedFileCommandTest {
 
     @MockK
     private lateinit var sambaClient: SambaClient
+
+    @MockK
+    private lateinit var nasComponent: NasComponent
+
+    @MockK
+    private lateinit var logger: Logger
 
     @InjectMockKs
     private lateinit var createdFileCommand: CreatedFileCommand

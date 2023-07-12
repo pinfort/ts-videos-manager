@@ -1,6 +1,7 @@
 package me.pinfort.tsvideosmanager.infrastructure.database.mapper
 
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.SplittedFileDto
+import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
 
@@ -21,5 +22,15 @@ interface SplittedFileMapper {
             executed_file_id = #{executedFileId}
     """
     )
-    fun selectByExecutedFileId(executedFileId: Int): List<SplittedFileDto>
+    fun selectByExecutedFileId(executedFileId: Long): List<SplittedFileDto>
+
+    @Delete(
+        """
+        DELETE FROM
+            splitted_file
+        WHERE
+            id = #{id}
+    """
+    )
+    fun delete(id: Long)
 }

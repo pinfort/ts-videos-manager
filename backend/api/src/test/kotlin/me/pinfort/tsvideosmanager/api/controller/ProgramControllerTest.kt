@@ -1,45 +1,64 @@
 package me.pinfort.tsvideosmanager.api.controller
 
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.every
+import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
+import me.pinfort.tsvideosmanager.infrastructure.structs.Program
+import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import org.testcontainers.containers.DockerComposeContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import java.io.File
+import java.time.LocalDateTime
 
-@SpringBootTest(
-    properties = [
-        "samba.video-store-nas.url=smb://samba:139/alice",
-        "samba.video-store-nas.username=alice",
-        "samba.video-store-nas.password=alipass",
-        "samba.original-store-nas.url=smb://samba:139/bob",
-        "samba.original-store-nas.username=bob",
-        "samba.original-store-nas.password=bobpass"
-    ]
-)
-@Testcontainers
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@SpringBootTest
 @AutoConfigureMockMvc
 class ProgramControllerTest {
-    @Container
-    var dockerComposeContainer: DockerComposeContainer<*> =
-        DockerComposeContainer(listOf(File("src/test/resources/docker-compose.yml")))
-
     @Autowired
     private lateinit var mockMvc: MockMvc
+
+    @MockkBean
+    private lateinit var programCommand: ProgramCommand
+
+    private val program = Program(
+        id = 1,
+        name = "test",
+        executedFileId = 2,
+        status = Program.Status.COMPLETED,
+        drops = 3,
+        size = 4,
+        duration = 5.0,
+        recordedAt = LocalDateTime.MIN,
+        channel = "",
+        title = "",
+        channelName = ""
+    )
+
+    private val programDetail = ProgramDetail(
+        id = 1,
+        name = "test",
+        executedFileId = 2,
+        status = Program.Status.COMPLETED,
+        drops = 3,
+        size = 4,
+        duration = 5.0,
+        recordedAt = LocalDateTime.MIN,
+        channel = "",
+        title = "",
+        channelName = "",
+        createdFiles = listOf()
+    )
 
     @Nested
     inner class IndexTest {
         @Test
         fun success() {
+            every { programCommand.selectByName(any()) } returns listOf()
             // andDo(print())でリクエスト・レスポンスを表示
             mockMvc.perform(get("/api/v1/programs"))
                 .andDo(print())
@@ -51,6 +70,10 @@ class ProgramControllerTest {
     inner class DetailTest {
         @Test
         fun success() {
+            every { programCommand.find(any()) } returns program
+            every { programCommand.findDetail(any()) } returns programDetail
+            every { programCommand.videoFiles(any()) } returns listOf()
+
             mockMvc.perform(get("/api/v1/programs/1"))
                 .andDo(print())
                 .andExpect(status().isOk)

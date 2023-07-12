@@ -1,6 +1,7 @@
 package me.pinfort.tsvideosmanager.infrastructure.database.mapper
 
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ExecutedFileDto
+import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
 
@@ -26,4 +27,14 @@ interface ExecutedFileMapper {
         """
     )
     fun find(id: Int): ExecutedFileDto?
+
+    @Delete(
+        """
+            DELETE FROM
+                executed_file
+            WHERE
+                id = #{id}
+        """
+    )
+    fun delete(id: Long)
 }
