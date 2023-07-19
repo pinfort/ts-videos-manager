@@ -38,7 +38,9 @@ class CreatedFileCommand(
     fun delete(createdFile: CreatedFile): SambaClient.NasType {
         return try {
             createdFileMapper.delete(createdFile.id)
-            nasComponent.deleteResource(createdFile.file)
+            val removedFrom = nasComponent.deleteResource(createdFile.file)
+            logger.info("Delete created file, id=${createdFile.id}")
+            removedFrom
         } catch (e: Exception) {
             logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}", e)
             throw e

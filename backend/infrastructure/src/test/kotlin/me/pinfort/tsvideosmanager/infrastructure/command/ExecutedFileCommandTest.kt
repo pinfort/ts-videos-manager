@@ -16,6 +16,7 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.slf4j.Logger
 import java.time.LocalDateTime
 
 class ExecutedFileCommandTest {
@@ -24,6 +25,9 @@ class ExecutedFileCommandTest {
 
     @MockK
     private lateinit var executedFileConverter: ExecutedFileConverter
+
+    @MockK
+    private lateinit var logger: Logger
 
     @InjectMockKs
     private lateinit var executedFileCommand: ExecutedFileCommand
@@ -110,11 +114,13 @@ class ExecutedFileCommandTest {
                 status = ExecutedFile.Status.SPLITTED
             )
             every { executedFileMapper.delete(any()) } just Runs
+            every { logger.info(any()) } just Runs
 
             executedFileCommand.delete(executedFile)
 
             verifySequence {
                 executedFileMapper.delete(1)
+                logger.info(any())
             }
         }
     }
