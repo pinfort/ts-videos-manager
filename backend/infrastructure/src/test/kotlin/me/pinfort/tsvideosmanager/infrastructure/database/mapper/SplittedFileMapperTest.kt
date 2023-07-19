@@ -123,4 +123,46 @@ class SplittedFileMapperTest {
             Assertions.assertThat(actual.size).isEqualTo(0)
         }
     }
+
+    @Nested
+    inner class DeleteTest {
+        @Test
+        fun success() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM splitted_file").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO splitted_file(id,executed_file_id,file,size,duration,status) VALUES(1,1,'filepath',2,3,'REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            splittedFileMapper.delete(1)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM splitted_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+
+        @Test
+        fun nothingHasDeleted() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM splitted_file").execute()
+            connection.commit()
+
+            splittedFileMapper.delete(1)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM splitted_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+    }
 }

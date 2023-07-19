@@ -281,4 +281,46 @@ class CreatedFileMapperTest {
             Assertions.assertThat(actual.size).isEqualTo(0)
         }
     }
+
+    @Nested
+    inner class DeleteTest {
+        @Test
+        fun success() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM created_file").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,1,'test',3,'test2','test3','REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            createdFileMapper.delete(7)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM created_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+
+        @Test
+        fun nothingHasDeleted() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM created_file").execute()
+            connection.commit()
+
+            createdFileMapper.delete(7)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM created_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+    }
 }

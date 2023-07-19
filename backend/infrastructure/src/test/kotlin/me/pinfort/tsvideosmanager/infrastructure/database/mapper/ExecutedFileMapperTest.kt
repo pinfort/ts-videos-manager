@@ -77,4 +77,48 @@ class ExecutedFileMapperTest {
             }
         }
     }
+
+    @Nested
+    inner class DeleteTest {
+        @Test
+        fun success() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
+                """.trimIndent()
+            ).execute()
+            connection.commit()
+
+            executedFileMapper.delete(1)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM executed_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+
+        @Test
+        fun nothingHasDeleted() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+            connection.commit()
+
+            executedFileMapper.delete(1)
+            connection.commit()
+
+            connection.prepareStatement("SELECT * FROM executed_file").use { statement ->
+                statement.executeQuery().use { resultSet ->
+                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(0)
+                }
+            }
+            connection.close()
+        }
+    }
 }
