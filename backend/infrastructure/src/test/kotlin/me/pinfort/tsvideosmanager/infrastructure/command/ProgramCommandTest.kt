@@ -1,20 +1,25 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
 import io.mockk.MockKAnnotations
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
 import io.mockk.verify
 import io.mockk.verifySequence
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
+import me.pinfort.tsvideosmanager.infrastructure.database.dto.SplittedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.SplittedFileMapper
+import me.pinfort.tsvideosmanager.infrastructure.samba.client.SambaClient
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
+import me.pinfort.tsvideosmanager.infrastructure.structs.ExecutedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
 import org.assertj.core.api.Assertions
@@ -112,6 +117,26 @@ class ProgramCommandTest {
         channelName = "channelName",
         duration = 5.0,
         createdFiles = listOf(createdFile)
+    )
+    val executedFile = ExecutedFile(
+        id = 1,
+        status = ExecutedFile.Status.REGISTERED,
+        size = 2,
+        recordedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+        channel = "channel",
+        title = "title",
+        channelName = "channelName",
+        duration = 3.0,
+        drops = 4,
+        file = "file"
+    )
+    val splittedFileDto = SplittedFileDto(
+        id = 1,
+        executedFileId = 2,
+        file = "file",
+        size = 3,
+        status = SplittedFileDto.Status.REGISTERED,
+        duration = 4.0
     )
 
     @BeforeEach
@@ -284,6 +309,54 @@ class ProgramCommandTest {
 
             verifySequence {
                 programMapper.find(1)
+            }
+        }
+    }
+
+    @Nested
+    inner class DeleteTest {
+        @Test
+        fun success() {
+            every { executedFileCommand.find(any()) } returns executedFile
+            every { splittedFileMapper.selectByExecutedFileId(any()) } returns listOf(splittedFileDto)
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { splittedFileMapper.delete(any()) } just Runs
+            every { logger.info(any()) } just Runs
+            every { createdFileCommand.delete(any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { executedFileCommand.delete(any()) } just Runs
+            every { programMapper.deleteById(any()) } just Runs
+
+            programCommand.delete(program)
+
+            verifySequence {
+                executedFileCommand.find(program.executedFileId)
+                splittedFileMapper.selectByExecutedFileId(executedFile.id)
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                splittedFileMapper.delete(splittedFileDto.id.toLong())
+                logger.info(any())
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.delete(createdFile)
+                logger.info(any())
+                executedFileCommand.delete(executedFile)
+                logger.info(any())
+                programMapper.deleteById(program.id)
+                logger.info(any())
+            }
+        }
+
+        @Test
+        fun executedNotFound() {
+            every { executedFileCommand.find(any()) } throws Exception("not found")
+
+            Assertions.assertThatThrownBy {
+                programCommand.delete(program)
+            }
+                .hasMessage("not found")
+                .isInstanceOf(Exception::class.java)
+
+            verifySequence {
+                executedFileCommand.find(program.executedFileId)
             }
         }
     }

@@ -1,9 +1,11 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
 import io.mockk.MockKAnnotations
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
 import io.mockk.verifySequence
 import jcifs.smb.SmbException
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
@@ -192,6 +194,61 @@ class CreatedFileCommandTest {
 
             verifySequence {
                 createdFileMapper.find(1)
+            }
+        }
+    }
+
+    @Nested
+    inner class Delete {
+        @Test
+        fun success() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { createdFileMapper.delete(any()) } just Runs
+            every { nasComponent.deleteResource(createdFile.file) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+
+            val actual = createdFileCommand.delete(createdFile)
+
+            Assertions.assertThat(actual).isEqualTo(SambaClient.NasType.ORIGINAL_STORE_NAS)
+
+            verifySequence {
+                createdFileMapper.delete(1)
+                nasComponent.deleteResource(createdFile.file)
+            }
+        }
+
+        @Test
+        fun noHit() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { createdFileMapper.delete(any()) } just Runs
+            every { nasComponent.deleteResource(any()) } throws Exception("err")
+            every { logger.error(any(), any<Exception>()) } just Runs
+
+            Assertions.assertThatThrownBy {
+                createdFileCommand.delete(createdFile)
+            }
+                .hasMessage("err")
+                .isInstanceOf(Exception::class.java)
+
+            verifySequence {
+                createdFileMapper.delete(1)
+                nasComponent.deleteResource(createdFile.file)
+                logger.error("Failed to delete file. id=1, file=${createdFile.file}", any<Exception>())
             }
         }
     }
