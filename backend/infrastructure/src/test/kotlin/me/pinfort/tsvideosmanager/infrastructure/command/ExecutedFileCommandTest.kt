@@ -1,9 +1,11 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
 import io.mockk.MockKAnnotations
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
 import io.mockk.verify
 import io.mockk.verifySequence
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ExecutedFileDto
@@ -87,6 +89,32 @@ class ExecutedFileCommandTest {
             }
             verify(exactly = 0) {
                 executedFileConverter.convert(any())
+            }
+        }
+    }
+
+    @Nested
+    inner class DeleteTest {
+        @Test
+        fun success() {
+            val executedFile = ExecutedFile(
+                id = 1,
+                file = "file",
+                drops = 2,
+                size = 3,
+                recordedAt = LocalDateTime.MIN,
+                channel = "channel",
+                title = "title",
+                channelName = "channelName",
+                duration = 4.0,
+                status = ExecutedFile.Status.SPLITTED
+            )
+            every { executedFileMapper.delete(any()) } just Runs
+
+            executedFileCommand.delete(executedFile)
+
+            verifySequence {
+                executedFileMapper.delete(1)
             }
         }
     }

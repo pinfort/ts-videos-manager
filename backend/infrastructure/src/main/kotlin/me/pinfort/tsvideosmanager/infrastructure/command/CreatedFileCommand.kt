@@ -40,7 +40,7 @@ class CreatedFileCommand(
             createdFileMapper.delete(createdFile.id)
             nasComponent.deleteResource(createdFile.file)
         } catch (e: Exception) {
-            logger.error("Failed to delete file, id=${createdFile.id}, file=${createdFile.file}", e)
+            logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}", e)
             throw e
         }
     }
