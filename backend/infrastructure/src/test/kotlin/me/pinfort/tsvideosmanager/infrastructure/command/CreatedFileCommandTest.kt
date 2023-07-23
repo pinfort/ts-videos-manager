@@ -213,7 +213,7 @@ class CreatedFileCommandTest {
             )
             every { createdFileMapper.delete(any()) } just Runs
             every { nasComponent.deleteResource(createdFile.file) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
-            every { logger.info(any()) }
+            every { logger.info(any()) } just Runs
 
             val actual = createdFileCommand.delete(createdFile)
 
