@@ -72,6 +72,6 @@ class ProgramCommand(
         executedFileCommand.delete(executedFile)
 
         programMapper.deleteById(program.id)
-        logger.info("Delete program, id=${program.id}")
+        logger.info("Delete program, id=${program.id}, program=$program")
     }
 }
