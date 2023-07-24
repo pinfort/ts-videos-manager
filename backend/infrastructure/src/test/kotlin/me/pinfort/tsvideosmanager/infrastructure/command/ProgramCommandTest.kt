@@ -337,9 +337,7 @@ class ProgramCommandTest {
                 logger.info(any())
                 createdFileConverter.convert(createdFileDto)
                 createdFileCommand.delete(createdFile)
-                logger.info(any())
                 executedFileCommand.delete(executedFile)
-                logger.info(any())
                 programMapper.deleteById(program.id)
                 logger.info(any())
             }
