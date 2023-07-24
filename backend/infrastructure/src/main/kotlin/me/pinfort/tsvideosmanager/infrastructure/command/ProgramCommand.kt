@@ -5,6 +5,7 @@ import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
+import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.SplittedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.SplittedFileMapper
@@ -25,7 +26,9 @@ class ProgramCommand(
     private val executedFileCommand: ExecutedFileCommand,
     private val createdFileCommand: CreatedFileCommand,
     private val splittedFileMapper: SplittedFileMapper,
-    private val logger: Logger
+    private val logger: Logger,
+    private val splittedFileCommand: SplittedFileCommand,
+    private val splittedFileConverter: SplittedFileConverter
 ) {
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<Program> {
         val programs: List<ProgramDto> = programMapper.selectByName(name, limit, offset)
@@ -59,8 +62,7 @@ class ProgramCommand(
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
 
         splittedFiles.forEach {
-            splittedFileMapper.delete(it.id.toLong())
-            logger.info("Delete splitted file, id=${it.id}")
+            splittedFileCommand.delete(splittedFileConverter.convert(it))
         }
 
         createdFiles.forEach {
