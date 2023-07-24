@@ -14,6 +14,7 @@ import me.pinfort.tsvideosmanager.infrastructure.database.dto.SplittedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.ProgramDetailConverter
+import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.SplittedFileConverter
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.CreatedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.ProgramMapper
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.SplittedFileMapper
@@ -22,6 +23,7 @@ import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.ExecutedFile
 import me.pinfort.tsvideosmanager.infrastructure.structs.Program
 import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
+import me.pinfort.tsvideosmanager.infrastructure.structs.SplittedFile
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -56,6 +58,12 @@ class ProgramCommandTest {
 
     @MockK
     private lateinit var logger: Logger
+
+    @MockK
+    private lateinit var splittedFileCommand: SplittedFileCommand
+
+    @MockK
+    private lateinit var splittedFileConverter: SplittedFileConverter
 
     @InjectMockKs
     private lateinit var programCommand: ProgramCommand
@@ -136,6 +144,14 @@ class ProgramCommandTest {
         file = "file",
         size = 3,
         status = SplittedFileDto.Status.REGISTERED,
+        duration = 4.0
+    )
+    val splittedFile = SplittedFile(
+        id = 1,
+        executedFileId = 2,
+        file = "file",
+        size = 3,
+        status = SplittedFile.Status.REGISTERED,
         duration = 4.0
     )
 
@@ -320,7 +336,8 @@ class ProgramCommandTest {
             every { executedFileCommand.find(any()) } returns executedFile
             every { splittedFileMapper.selectByExecutedFileId(any()) } returns listOf(splittedFileDto)
             every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
-            every { splittedFileMapper.delete(any()) } just Runs
+            every { splittedFileConverter.convert(any()) } returns splittedFile
+            every { splittedFileCommand.delete(any()) } just Runs
             every { logger.info(any()) } just Runs
             every { createdFileCommand.delete(any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
             every { createdFileConverter.convert(any()) } returns createdFile
@@ -333,8 +350,8 @@ class ProgramCommandTest {
                 executedFileCommand.find(program.executedFileId)
                 splittedFileMapper.selectByExecutedFileId(executedFile.id)
                 createdFileMapper.selectByExecutedFileId(program.executedFileId)
-                splittedFileMapper.delete(splittedFileDto.id.toLong())
-                logger.info(any())
+                splittedFileConverter.convert(splittedFileDto)
+                splittedFileCommand.delete(splittedFile)
                 createdFileConverter.convert(createdFileDto)
                 createdFileCommand.delete(createdFile)
                 executedFileCommand.delete(executedFile)
