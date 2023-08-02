@@ -26,11 +26,11 @@ class Get(
     override fun execute() {
         when (resourceType) {
             ResourceType.PROGRAM -> {
-                val program = programCommand.findDetail(id) ?: return println("program not found")
+                val program = programCommand.findDetail(id.toLong()) ?: return println("program not found")
                 println(programDetailToTextComponent.convertConsole(program))
             }
             ResourceType.EXECUTED_FILE -> {
-                val executedFile = executedFileCommand.find(id) ?: return println("executedFile not found")
+                val executedFile = executedFileCommand.find(id.toLong()) ?: return println("executedFile not found")
                 println(executedFile)
             }
         }
