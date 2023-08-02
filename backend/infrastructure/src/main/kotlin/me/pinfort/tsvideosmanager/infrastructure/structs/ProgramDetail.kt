@@ -3,9 +3,9 @@ package me.pinfort.tsvideosmanager.infrastructure.structs
 import java.time.LocalDateTime
 
 data class ProgramDetail(
-    val id: Int,
+    val id: Long,
     val name: String,
-    val executedFileId: Int,
+    val executedFileId: Long,
     val status: Program.Status,
     val drops: Int,
     val size: Long,

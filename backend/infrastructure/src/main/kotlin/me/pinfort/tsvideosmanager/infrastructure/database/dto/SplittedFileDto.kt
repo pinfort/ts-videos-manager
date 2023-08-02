@@ -1,8 +1,8 @@
 package me.pinfort.tsvideosmanager.infrastructure.database.dto
 
 data class SplittedFileDto(
-    val id: Int,
-    val executedFileId: Int,
+    val id: Long,
+    val executedFileId: Long,
     val file: String,
     val size: Long,
     val duration: Double,

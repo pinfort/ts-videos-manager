@@ -57,7 +57,7 @@ interface ProgramMapper {
                 pg.id = #{id}
         """
     )
-    fun find(id: Int): ProgramDto?
+    fun find(id: Long): ProgramDto?
 
     @Delete(
         """
@@ -67,5 +67,5 @@ interface ProgramMapper {
                 id = #{id}
         """
     )
-    fun deleteById(id: Int)
+    fun deleteById(id: Long)
 }

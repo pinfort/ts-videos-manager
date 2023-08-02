@@ -18,14 +18,14 @@ class CreatedFileCommand(
     private val nasComponent: NasComponent,
     private val logger: Logger
 ) {
-    fun findMp4File(id: Int): CreatedFile? {
+    fun findMp4File(id: Long): CreatedFile? {
         val createdFile: CreatedFile = createdFileMapper.find(id)?.let { createdFileConverter.convert(it) } ?: return null
         // 動画ファイルでない場合はファイルが存在しない扱いをする
         if (!createdFile.isMp4) return null
         return createdFile
     }
 
-    fun streamCreatedFile(id: Int): InputStream? {
+    fun streamCreatedFile(id: Long): InputStream? {
         val createdFile: CreatedFile = findMp4File(id) ?: return null
         return try {
             sambaClient.videoStoreNas()
