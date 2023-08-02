@@ -36,7 +36,7 @@ class ProgramCommand(
         return programs.map { programConverter.convert(it) }
     }
 
-    fun find(id: Int): Program? {
+    fun find(id: Long): Program? {
         return programMapper.find(id)?.let { programConverter.convert(it) }
     }
 
@@ -49,7 +49,7 @@ class ProgramCommand(
         return false
     }
 
-    fun findDetail(id: Int): ProgramDetail? {
+    fun findDetail(id: Long): ProgramDetail? {
         val program: ProgramDto = programMapper.find(id) ?: return null
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
         return programDetailConverter.convert(program, createdFiles)

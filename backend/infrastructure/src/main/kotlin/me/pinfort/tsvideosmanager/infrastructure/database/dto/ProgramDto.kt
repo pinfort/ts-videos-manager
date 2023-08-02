@@ -3,9 +3,9 @@ package me.pinfort.tsvideosmanager.infrastructure.database.dto
 import java.time.LocalDateTime
 
 data class ProgramDto(
-    val id: Int,
+    val id: Long,
     val name: String,
-    val executedFileId: Int,
+    val executedFileId: Long,
     val status: Status,
     val drops: Int?,
     val size: Long?,

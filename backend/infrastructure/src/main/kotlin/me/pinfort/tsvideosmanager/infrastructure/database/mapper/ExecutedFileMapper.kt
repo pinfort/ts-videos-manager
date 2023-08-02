@@ -26,7 +26,7 @@ interface ExecutedFileMapper {
                 id = #{id}
         """
     )
-    fun find(id: Int): ExecutedFileDto?
+    fun find(id: Long): ExecutedFileDto?
 
     @Delete(
         """

@@ -11,7 +11,7 @@ class SplittedFileCommand(
     private val logger: Logger
 ) {
     fun delete(splittedFile: SplittedFile) {
-        splittedFileMapper.delete(splittedFile.id.toLong())
+        splittedFileMapper.delete(splittedFile.id)
         logger.info("Delete splitted file, id=${splittedFile.id}")
     }
 }

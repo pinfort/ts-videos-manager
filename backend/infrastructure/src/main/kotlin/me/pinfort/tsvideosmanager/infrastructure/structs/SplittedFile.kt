@@ -1,8 +1,8 @@
 package me.pinfort.tsvideosmanager.infrastructure.structs
 
 data class SplittedFile(
-    val id: Int,
-    val executedFileId: Int,
+    val id: Long,
+    val executedFileId: Long,
     val file: String,
     val size: Long,
     val duration: Double,

@@ -1,8 +1,8 @@
 package me.pinfort.tsvideosmanager.infrastructure.structs
 
 data class CreatedFile(
-    val id: Int,
-    val splittedFileId: Int,
+    val id: Long,
+    val splittedFileId: Long,
     val file: String,
     val size: Long,
     val mime: String?,

@@ -12,7 +12,7 @@ class ExecutedFileCommand(
     private val executedFileConverter: ExecutedFileConverter,
     private val logger: Logger
 ) {
-    fun find(id: Int): ExecutedFile? {
+    fun find(id: Long): ExecutedFile? {
         return executedFileMapper.find(id)?.let { executedFileConverter.convert(it) }
     }
 

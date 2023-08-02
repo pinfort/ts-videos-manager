@@ -23,7 +23,7 @@ interface CreatedFileMapper {
                 id = #{id}
         """
     )
-    fun find(id: Int): CreatedFileDto?
+    fun find(id: Long): CreatedFileDto?
 
     @Select(
         """
@@ -41,7 +41,7 @@ interface CreatedFileMapper {
                 splitted_file_id = #{splittedFileId}
         """
     )
-    fun selectBySplittedFileId(splittedFileId: Int): List<CreatedFileDto>
+    fun selectBySplittedFileId(splittedFileId: Long): List<CreatedFileDto>
 
     @Select(
         """
@@ -60,7 +60,7 @@ interface CreatedFileMapper {
             WHERE splitted_file.executed_file_id = #{executedFileId}
         """
     )
-    fun selectByExecutedFileId(executedFileId: Int): List<CreatedFileDto>
+    fun selectByExecutedFileId(executedFileId: Long): List<CreatedFileDto>
 
     @Delete(
         """
@@ -70,5 +70,5 @@ interface CreatedFileMapper {
                 id = #{id}
         """
     )
-    fun delete(id: Int)
+    fun delete(id: Long)
 }
