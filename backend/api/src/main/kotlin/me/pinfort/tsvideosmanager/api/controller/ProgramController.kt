@@ -36,7 +36,7 @@ class ProgramController(
     }
 
     @GetMapping("/api/v1/programs/{id}")
-    fun get(@PathVariable(name = "id") id: Int): ProgramDetailResponse {
+    fun get(@PathVariable(name = "id") id: Long): ProgramDetailResponse {
         val program = programCommand.find(id) ?: throw ProgramNotFoundException("program not found. id=$id")
         val programDetail = programCommand.findDetail(id) ?: throw ProgramNotFoundException("program not found. id=$id")
         val videoFiles = programCommand.videoFiles(program)
@@ -47,5 +47,5 @@ class ProgramController(
     }
 
     @DeleteMapping("/api/v1/programs/{id}")
-    fun delete(@PathVariable(name = "id") id: Int) {}
+    fun delete(@PathVariable(name = "id") id: Long) {}
 }

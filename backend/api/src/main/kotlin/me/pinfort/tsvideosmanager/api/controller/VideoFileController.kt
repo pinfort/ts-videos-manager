@@ -17,7 +17,7 @@ class VideoFileController(
     private val createdFileCommand: CreatedFileCommand
 ) {
     @GetMapping("/api/v1/video/{id}/stream")
-    fun stream(@PathVariable(name = "id") id: Int): ResponseEntity<InputStreamResource> {
+    fun stream(@PathVariable(name = "id") id: Long): ResponseEntity<InputStreamResource> {
         val responseHeaders = HttpHeaders()
         responseHeaders.contentType = MediaType.asMediaType(MimeType.valueOf("video/mp4"))
         val video = createdFileCommand.streamCreatedFile(id) ?: return ResponseEntity<InputStreamResource>(
