@@ -12,6 +12,6 @@ class SplittedFileCommand(
 ) {
     fun delete(splittedFile: SplittedFile) {
         splittedFileMapper.delete(splittedFile.id)
-        logger.info("Delete splitted file, id=${splittedFile.id}")
+        logger.info("Delete splitted file, id=${splittedFile.id}, splittedFile=$splittedFile")
     }
 }

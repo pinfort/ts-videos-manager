@@ -39,7 +39,7 @@ class CreatedFileCommand(
         return try {
             createdFileMapper.delete(createdFile.id)
             val removedFrom = nasComponent.deleteResource(createdFile.file)
-            logger.info("Delete created file, id=${createdFile.id}")
+            logger.info("Delete created file, id=${createdFile.id}, createdFile=$createdFile, removedFrom=$removedFrom")
             removedFrom
         } catch (e: Exception) {
             logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}", e)

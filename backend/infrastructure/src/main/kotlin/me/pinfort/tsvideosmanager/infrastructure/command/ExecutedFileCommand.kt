@@ -18,6 +18,6 @@ class ExecutedFileCommand(
 
     fun delete(executedFile: ExecutedFile) {
         executedFileMapper.delete(executedFile.id)
-        logger.info("Delete executed file, id=${executedFile.id}")
+        logger.info("Delete executed file, id=${executedFile.id}, executedFile=$executedFile")
     }
 }
