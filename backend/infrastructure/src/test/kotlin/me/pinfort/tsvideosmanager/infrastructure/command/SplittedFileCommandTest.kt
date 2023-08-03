@@ -6,6 +6,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
+import io.mockk.verify
 import io.mockk.verifySequence
 import me.pinfort.tsvideosmanager.infrastructure.database.mapper.SplittedFileMapper
 import me.pinfort.tsvideosmanager.infrastructure.structs.SplittedFile
@@ -49,8 +50,20 @@ class SplittedFileCommandTest {
 
             verifySequence {
                 splittedFileMapper.delete(splittedFile.id.toLong())
-                logger.info("Delete splitted file, id=${splittedFile.id}")
+                logger.info("Delete splitted file, id=1, splittedFile=SplittedFile(id=1, executedFileId=1, file=test.ts, size=1, duration=1.0, status=REGISTERED)")
             }
+        }
+
+        @Test
+        fun dryRun() {
+            every { logger.info(any()) } just Runs
+
+            splittedFileCommand.delete(splittedFile, true)
+
+            verifySequence {
+                logger.info("Delete splitted file, id=1, splittedFile=SplittedFile(id=1, executedFileId=1, file=test.ts, size=1, duration=1.0, status=REGISTERED)")
+            }
+            verify(exactly = 0) { splittedFileMapper.delete(any()) }
         }
     }
 }

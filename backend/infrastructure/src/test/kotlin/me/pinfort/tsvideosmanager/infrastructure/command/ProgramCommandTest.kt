@@ -351,10 +351,10 @@ class ProgramCommandTest {
                 splittedFileMapper.selectByExecutedFileId(executedFile.id)
                 createdFileMapper.selectByExecutedFileId(program.executedFileId)
                 splittedFileConverter.convert(splittedFileDto)
-                splittedFileCommand.delete(splittedFile)
+                splittedFileCommand.delete(splittedFile, false)
                 createdFileConverter.convert(createdFileDto)
-                createdFileCommand.delete(createdFile)
-                executedFileCommand.delete(executedFile)
+                createdFileCommand.delete(createdFile, false)
+                executedFileCommand.delete(executedFile, false)
                 programMapper.deleteById(program.id)
                 logger.info(any())
             }
@@ -372,6 +372,37 @@ class ProgramCommandTest {
 
             verifySequence {
                 executedFileCommand.find(program.executedFileId)
+            }
+        }
+
+        @Test
+        fun dryRun() {
+            every { executedFileCommand.find(any()) } returns executedFile
+            every { splittedFileMapper.selectByExecutedFileId(any()) } returns listOf(splittedFileDto)
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { splittedFileConverter.convert(any()) } returns splittedFile
+            every { splittedFileCommand.delete(any(), any()) } just Runs
+            every { logger.info(any()) } just Runs
+            every { createdFileCommand.delete(any(), any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { executedFileCommand.delete(any(), any()) } just Runs
+            every { programMapper.deleteById(any()) } just Runs
+
+            programCommand.delete(program, true)
+
+            verifySequence {
+                executedFileCommand.find(program.executedFileId)
+                splittedFileMapper.selectByExecutedFileId(executedFile.id)
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                splittedFileConverter.convert(splittedFileDto)
+                splittedFileCommand.delete(splittedFile, true)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.delete(createdFile, true)
+                executedFileCommand.delete(executedFile, true)
+                logger.info(any())
+            }
+            verify(exactly = 0) {
+                programMapper.deleteById(program.id)
             }
         }
     }

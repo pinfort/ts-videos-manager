@@ -16,8 +16,10 @@ class ExecutedFileCommand(
         return executedFileMapper.find(id)?.let { executedFileConverter.convert(it) }
     }
 
-    fun delete(executedFile: ExecutedFile) {
-        executedFileMapper.delete(executedFile.id)
+    fun delete(executedFile: ExecutedFile, dryRun: Boolean = false) {
+        if (!dryRun) {
+            executedFileMapper.delete(executedFile.id)
+        }
         logger.info("Delete executed file, id=${executedFile.id}, executedFile=$executedFile")
     }
 }
