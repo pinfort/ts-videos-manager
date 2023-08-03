@@ -35,11 +35,15 @@ class CreatedFileCommand(
         }
     }
 
-    fun delete(createdFile: CreatedFile): SambaClient.NasType {
+    fun delete(createdFile: CreatedFile, dryRun: Boolean = false): SambaClient.NasType {
         return try {
-            createdFileMapper.delete(createdFile.id)
-            val removedFrom = nasComponent.deleteResource(createdFile.file)
-            logger.info("Delete created file, id=${createdFile.id}")
+            val removedFrom = if (!dryRun) {
+                createdFileMapper.delete(createdFile.id)
+                nasComponent.deleteResource(createdFile.file)
+            } else {
+                SambaClient.NasType.VIDEO_STORE_NAS
+            }
+            logger.info("Delete created file, id=${createdFile.id}, createdFile=$createdFile, removedFrom=$removedFrom")
             removedFrom
         } catch (e: Exception) {
             logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}", e)

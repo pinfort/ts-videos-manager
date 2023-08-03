@@ -123,5 +123,31 @@ class ExecutedFileCommandTest {
                 logger.info(any())
             }
         }
+
+        @Test
+        fun dryRun() {
+            val executedFile = ExecutedFile(
+                id = 1,
+                file = "file",
+                drops = 2,
+                size = 3,
+                recordedAt = LocalDateTime.MIN,
+                channel = "channel",
+                title = "title",
+                channelName = "channelName",
+                duration = 4.0,
+                status = ExecutedFile.Status.SPLITTED
+            )
+            every { logger.info(any()) } just Runs
+
+            executedFileCommand.delete(executedFile, true)
+
+            verifySequence {
+                logger.info(any())
+            }
+            verify(exactly = 0) {
+                executedFileMapper.delete(1)
+            }
+        }
     }
 }

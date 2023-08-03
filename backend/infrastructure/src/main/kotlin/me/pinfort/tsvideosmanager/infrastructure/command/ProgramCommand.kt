@@ -56,22 +56,24 @@ class ProgramCommand(
     }
 
     @Transactional
-    fun delete(program: Program) {
+    fun delete(program: Program, dryRun: Boolean = false) {
         val executedFile = executedFileCommand.find(program.executedFileId) ?: throw Exception("ExecutedFile not found")
         val splittedFiles = splittedFileMapper.selectByExecutedFileId(executedFile.id)
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
 
         splittedFiles.forEach {
-            splittedFileCommand.delete(splittedFileConverter.convert(it))
+            splittedFileCommand.delete(splittedFileConverter.convert(it), dryRun)
         }
 
         createdFiles.forEach {
-            createdFileCommand.delete(createdFileConverter.convert(it))
+            createdFileCommand.delete(createdFileConverter.convert(it), dryRun)
         }
 
-        executedFileCommand.delete(executedFile)
+        executedFileCommand.delete(executedFile, dryRun)
 
-        programMapper.deleteById(program.id)
+        if (!dryRun) {
+            programMapper.deleteById(program.id)
+        }
         logger.info("Delete program, id=${program.id}, program=$program")
     }
 }

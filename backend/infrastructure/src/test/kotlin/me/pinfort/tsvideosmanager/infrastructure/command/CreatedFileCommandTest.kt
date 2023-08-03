@@ -6,6 +6,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
+import io.mockk.verify
 import io.mockk.verifySequence
 import jcifs.smb.SmbException
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
@@ -251,6 +252,32 @@ class CreatedFileCommandTest {
                 createdFileMapper.delete(1)
                 nasComponent.deleteResource(createdFile.file)
                 logger.error("Failed to delete file. id=1, file=${createdFile.file}", any<Exception>())
+            }
+        }
+
+        @Test
+        fun dryRun() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { logger.info(any()) } just Runs
+
+            val actual = createdFileCommand.delete(createdFile, true)
+
+            Assertions.assertThat(actual).isEqualTo(SambaClient.NasType.VIDEO_STORE_NAS)
+
+            verifySequence {
+                logger.info(any())
+            }
+            verify(exactly = 0) {
+                createdFileMapper.delete(any())
+                nasComponent.deleteResource(any())
             }
         }
     }
