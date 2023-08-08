@@ -14,14 +14,14 @@ class Delete(
     private val programCommand: ProgramCommand,
     private val userQuestionComponent: UserQuestionComponent
 ) : Subcommand("delete", "delete program") {
-    private val id by argument(ArgType.Int, "id", "id of resource")
+    private val programId by argument(ArgType.Int, "programId", "id of program to delete")
     private val dryRun by option(ArgType.Boolean, "dryRun", "d").default(false)
 
     override fun execute() {
         if (dryRun) {
             println("in dry run mode.")
         }
-        val targetProgram = programCommand.find(id.toLong()) ?: return println("program not found")
+        val targetProgram = programCommand.find(programId.toLong()) ?: return println("program not found")
 
         println("program ready to delete:$targetProgram")
         val response = userQuestionComponent.askDefaultFalse("delete?")
