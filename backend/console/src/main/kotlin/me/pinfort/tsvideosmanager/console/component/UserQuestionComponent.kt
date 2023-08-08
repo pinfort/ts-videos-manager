@@ -19,14 +19,14 @@ class UserQuestionComponent {
 
     fun askDefaultFalse(question: String): Boolean {
         println(question)
-        println("y/N")
+        print("[y/N] >> ")
         val answer = readlnOrNull()
         return !answer.isNullOrEmpty() && yesResponses.contains(answer)
     }
 
     fun askDefaultTrue(question: String): Boolean {
         println(question)
-        println("Y/n")
+        print("[Y/n] >> ")
         val answer = readlnOrNull()
         return answer.isNullOrEmpty() || !noResponses.contains(answer)
     }

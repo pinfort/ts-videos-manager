@@ -3,6 +3,7 @@ package me.pinfort.tsvideosmanager.console
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
+import me.pinfort.tsvideosmanager.console.subcommands.Delete
 import me.pinfort.tsvideosmanager.console.subcommands.Get
 import me.pinfort.tsvideosmanager.console.subcommands.Search
 import org.springframework.boot.ApplicationArguments
@@ -13,12 +14,14 @@ import org.springframework.stereotype.Component
 @Component
 class ConsoleApplicationRunner(
     private val search: Search,
-    private val get: Get
+    private val get: Get,
+    private val delete: Delete
 ) : ApplicationRunner {
     override fun run(args: ApplicationArguments?) {
         val subCommands: List<Subcommand> = listOf(
             search,
-            get
+            get,
+            delete
         )
 
         val parser = ArgParser("tsVideosManager")
