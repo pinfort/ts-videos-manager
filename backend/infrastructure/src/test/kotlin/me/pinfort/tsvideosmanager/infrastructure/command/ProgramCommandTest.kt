@@ -405,5 +405,38 @@ class ProgramCommandTest {
                 programMapper.deleteById(program.id)
             }
         }
+
+        @Test
+        fun exception() {
+            every { executedFileCommand.find(any()) } returns executedFile
+            every { splittedFileMapper.selectByExecutedFileId(any()) } returns listOf(splittedFileDto)
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { splittedFileConverter.convert(any()) } returns splittedFile
+            every { splittedFileCommand.delete(any(), any()) } just Runs
+            every { logger.info(any()) } just Runs
+            every { createdFileCommand.delete(any(), any()) } throws RuntimeException("error")
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { executedFileCommand.delete(any(), any()) } just Runs
+            every { programMapper.deleteById(any()) } just Runs
+
+            Assertions.assertThatThrownBy {
+                programCommand.delete(program, true)
+            }.isInstanceOf(RuntimeException::class.java)
+
+            verifySequence {
+                executedFileCommand.find(program.executedFileId)
+                splittedFileMapper.selectByExecutedFileId(executedFile.id)
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                splittedFileConverter.convert(splittedFileDto)
+                splittedFileCommand.delete(splittedFile, true)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.delete(createdFile, true)
+            }
+            verify(exactly = 0) {
+                programMapper.deleteById(program.id)
+                executedFileCommand.delete(executedFile, true)
+                logger.info(any())
+            }
+        }
     }
 }

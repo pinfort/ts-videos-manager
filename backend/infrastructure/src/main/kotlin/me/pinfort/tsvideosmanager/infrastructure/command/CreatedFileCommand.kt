@@ -8,6 +8,7 @@ import me.pinfort.tsvideosmanager.infrastructure.samba.component.NasComponent
 import me.pinfort.tsvideosmanager.infrastructure.structs.CreatedFile
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.io.InputStream
 
 @Component
@@ -35,6 +36,7 @@ class CreatedFileCommand(
         }
     }
 
+    @Transactional
     fun delete(createdFile: CreatedFile, dryRun: Boolean = false): SambaClient.NasType {
         return try {
             val removedFrom = if (!dryRun) {
@@ -46,8 +48,8 @@ class CreatedFileCommand(
             logger.info("Delete created file, id=${createdFile.id}, createdFile=$createdFile, removedFrom=$removedFrom")
             removedFrom
         } catch (e: Exception) {
-            logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}", e)
-            throw e
+            logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}, createdFile=$createdFile", e)
+            throw RuntimeException(e)
         }
     }
 }
