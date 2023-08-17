@@ -31,7 +31,6 @@ interface ProgramMapper {
             #{limit}
         OFFSET
             #{offset}
-        ORDER BY recorded_at DESC
     """
     )
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<ProgramDto>
