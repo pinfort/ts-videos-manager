@@ -49,6 +49,7 @@ class CreatedFileCommand(
             removedFrom
         } catch (e: Exception) {
             logger.error("Failed to delete file. id=${createdFile.id}, file=${createdFile.file}, createdFile=$createdFile", e)
+            // RuntimeExceptionにしないとロールバック対象にならない
             throw RuntimeException(e)
         }
     }
