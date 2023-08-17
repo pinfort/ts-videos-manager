@@ -251,7 +251,7 @@ class CreatedFileCommandTest {
             verifySequence {
                 createdFileMapper.delete(1)
                 nasComponent.deleteResource(createdFile.file)
-                logger.error("Failed to delete file. id=1, file=${createdFile.file}", any<Exception>())
+                logger.error("Failed to delete file. id=1, file=${createdFile.file}, createdFile=${createdFile}", any<Exception>())
             }
         }
 
