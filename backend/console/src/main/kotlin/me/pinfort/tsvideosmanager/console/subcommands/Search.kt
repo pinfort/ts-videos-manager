@@ -23,12 +23,14 @@ class Search(
         println("id\trecorded_at\t\tchannelName\t\tdrops\ttsExists\ttitle")
 
         val programs = programCommand.selectByName(programSearchName, 500, 0) // TODO: 全部JOINにしてSQL発行回数をなんとかする
-        programs.forEach {
-            val tsExists = programCommand.hasTsFile(it)
-            val programInfo = "%d\t%s\t%s\t%d\t%b\t%s".format(it.id, datetimeFormat.format(it.recordedAt), it.channelName, it.drops, tsExists, it.title)
-            val decoratedProgramInfo = decorateProgramInfo(it.drops, programInfo)
-            println(decoratedProgramInfo)
-        }
+        programs
+            .sortedBy { it.recordedAt }
+            .forEach {
+                val tsExists = programCommand.hasTsFile(it)
+                val programInfo = "%d\t%s\t%s\t%d\t%b\t%s".format(it.id, datetimeFormat.format(it.recordedAt), it.channelName, it.drops, tsExists, it.title)
+                val decoratedProgramInfo = decorateProgramInfo(it.drops, programInfo)
+                println(decoratedProgramInfo)
+            }
     }
 
     private fun decorateProgramInfo(drops: Int, programInfo: String): String {
