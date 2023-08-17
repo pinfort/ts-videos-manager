@@ -245,7 +245,7 @@ class CreatedFileCommandTest {
             Assertions.assertThatThrownBy {
                 createdFileCommand.delete(createdFile)
             }
-                .hasMessage("err")
+                .hasMessage("java.lang.Exception: err")
                 .isInstanceOf(Exception::class.java)
 
             verifySequence {
