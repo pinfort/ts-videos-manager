@@ -4,6 +4,7 @@ import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
+import org.apache.ibatis.annotations.Update
 
 @Mapper
 interface CreatedFileMapper {
@@ -61,6 +62,18 @@ interface CreatedFileMapper {
         """
     )
     fun selectByExecutedFileId(executedFileId: Long): List<CreatedFileDto>
+
+    @Update(
+        """
+            UPDATE
+                created_file
+            SET
+                file = #{file}
+            WHERE
+                id = #{createdFileId}
+        """
+    )
+    fun updateFile(createdFileId: Long, file: String): Int
 
     @Delete(
         """
