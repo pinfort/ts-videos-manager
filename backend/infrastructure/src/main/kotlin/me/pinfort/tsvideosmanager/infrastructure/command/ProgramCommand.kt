@@ -1,5 +1,6 @@
 package me.pinfort.tsvideosmanager.infrastructure.command
 
+import me.pinfort.tsvideosmanager.infrastructure.component.DirectoryNameComponent
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.converter.CreatedFileConverter
@@ -15,6 +16,7 @@ import me.pinfort.tsvideosmanager.infrastructure.structs.ProgramDetail
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.nio.file.Path
 
 @Component
 class ProgramCommand(
@@ -28,7 +30,8 @@ class ProgramCommand(
     private val splittedFileMapper: SplittedFileMapper,
     private val logger: Logger,
     private val splittedFileCommand: SplittedFileCommand,
-    private val splittedFileConverter: SplittedFileConverter
+    private val splittedFileConverter: SplittedFileConverter,
+    private val directoryNameComponent: DirectoryNameComponent
 ) {
     fun selectByName(name: String, limit: Int = 100, offset: Int = 0): List<Program> {
         val programs: List<ProgramDto> = programMapper.selectByName(name, limit, offset)
@@ -78,13 +81,15 @@ class ProgramCommand(
     }
 
     @Transactional
-    fun moveCreatedFiles(program: Program, newFile: String, dryRun: Boolean = false) {
+    fun moveCreatedFiles(program: Program, newDirectory: String, dryRun: Boolean = false) {
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
 
         createdFiles.forEach {
-            createdFileCommand.move(createdFileConverter.convert(it), newFile, dryRun)
+            val oldPath = Path.of(it.file)
+            val newPath = directoryNameComponent.replaceWithGivenDirectoryName(oldPath, newDirectory)
+            createdFileCommand.move(createdFileConverter.convert(it), newPath.toString(), dryRun)
         }
 
-        logger.info("Move created files, id=${program.id}, newFile=$newFile, program=$program")
+        logger.info("Move created files, id=${program.id}, newDirectory=$newDirectory, program=$program")
     }
 }
