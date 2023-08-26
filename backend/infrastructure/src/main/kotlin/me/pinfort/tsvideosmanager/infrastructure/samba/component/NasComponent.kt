@@ -39,7 +39,7 @@ class NasComponent(
     fun moveResource(oldFile: String, newFile: String): SambaClient.NasType {
         val resource = videoStoreNas.resolve(oldFile.replace('\\', '/'))
         if (resource.exists()) {
-            createDirectory(newFile, SambaClient.NasType.VIDEO_STORE_NAS)
+            createDirectories(newFile, SambaClient.NasType.VIDEO_STORE_NAS)
             resource.copyTo(videoStoreNas.resolve(newFile.replace('\\', '/')))
             resource.delete()
             logger.info("Move file, oldFile=$oldFile, newFile=$newFile")
@@ -47,7 +47,7 @@ class NasComponent(
         }
         val originalResource = originalStoreNas.resolve(oldFile.replace('\\', '/'))
         if (originalResource.exists()) {
-            createDirectory(newFile, SambaClient.NasType.ORIGINAL_STORE_NAS)
+            createDirectories(newFile, SambaClient.NasType.ORIGINAL_STORE_NAS)
             originalResource.copyTo(originalStoreNas.resolve(newFile.replace('\\', '/')))
             originalResource.delete()
             logger.info("Move file, oldFile=$oldFile, newFile=$newFile")
@@ -56,11 +56,30 @@ class NasComponent(
         throw Exception("File not found, path=$oldFile")
     }
 
-    fun createDirectory(file: String, nasType: SambaClient.NasType) {
-        val directory = Path.of(file.replace('\\', '/')).parent.toString()
+    fun createDirectories(file: String, nasType: SambaClient.NasType) {
+        val programDirectory = Path.of(file.replace('\\', '/')).parent
+        val indexDirectory = programDirectory.parent
+
+        createDirectory(indexDirectory.toString(), nasType)
+        createDirectory(programDirectory.toString(), nasType)
+    }
+
+    fun createDirectory(directory: String, nasType: SambaClient.NasType) {
         when (nasType) {
-            SambaClient.NasType.VIDEO_STORE_NAS -> videoStoreNas.resolve(directory.replace('\\', '/')).mkdirs()
-            SambaClient.NasType.ORIGINAL_STORE_NAS -> originalStoreNas.resolve(directory.replace('\\', '/')).mkdirs()
+            SambaClient.NasType.VIDEO_STORE_NAS -> {
+                val resource = videoStoreNas.resolve(directory)
+                if (!resource.exists()) {
+                    logger.info("Create directory, directory=$directory")
+                    resource.mkdir()
+                }
+            }
+            SambaClient.NasType.ORIGINAL_STORE_NAS -> {
+                val resource = originalStoreNas.resolve(directory)
+                if (!resource.exists()) {
+                    logger.info("Create directory, directory=$directory")
+                    resource.mkdir()
+                }
+            }
         }
     }
 }
