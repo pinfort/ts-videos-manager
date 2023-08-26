@@ -32,6 +32,15 @@ class DirectoryNameComponentTest {
 
             Assertions.assertThat(result).isEqualTo("さ")
         }
+
+        @Test
+        fun successWindows() {
+            every { normalizeNameComponent.normalize("かきくけこ") } returns "さしすせそ"
+
+            val result = directoryNameComponent.indexDirectoryName(Path.of("あいうえお\\かきくけこ\\てすとvideofile.m2ts"))
+
+            Assertions.assertThat(result).isEqualTo("さ")
+        }
     }
 
     @Nested
@@ -41,6 +50,15 @@ class DirectoryNameComponentTest {
             every { normalizeNameComponent.normalize("かきくけこ") } returns "さしすせそ"
 
             val result = directoryNameComponent.programDirectoryName(Path.of("あいうえお/かきくけこ/てすとvideofile.m2ts"))
+
+            Assertions.assertThat(result).isEqualTo("さしすせそ")
+        }
+
+        @Test
+        fun successWindows() {
+            every { normalizeNameComponent.normalize("かきくけこ") } returns "さしすせそ"
+
+            val result = directoryNameComponent.programDirectoryName(Path.of("あいうえお\\かきくけこ\\てすとvideofile.m2ts"))
 
             Assertions.assertThat(result).isEqualTo("さしすせそ")
         }
