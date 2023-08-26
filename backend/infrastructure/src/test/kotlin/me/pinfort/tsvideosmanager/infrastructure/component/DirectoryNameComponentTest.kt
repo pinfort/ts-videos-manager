@@ -63,4 +63,25 @@ class DirectoryNameComponentTest {
             Assertions.assertThat(result).isEqualTo("さしすせそ")
         }
     }
+
+    @Nested
+    inner class ReplaceWithGivenDirectoryName {
+        @Test
+        fun success() {
+            every { normalizeNameComponent.normalize("ほげ") } returns "ほげ"
+
+            val result = directoryNameComponent.replaceWithGivenDirectoryName(Path.of("あいうえお/かきくけこ/さしすせそ/てすとvideofile.m2ts"), "ほげ")
+
+            Assertions.assertThat(result).isEqualTo(Path.of("あいうえお/ほ/ほげ/てすとvideofile.m2ts"))
+        }
+
+        @Test
+        fun successWindows() {
+            every { normalizeNameComponent.normalize("ほげ") } returns "ほげ"
+
+            val result = directoryNameComponent.replaceWithGivenDirectoryName(Path.of("あいうえお\\かきくけこ\\さしすせそ\\てすとvideofile.m2ts"), "ほげ")
+
+            Assertions.assertThat(result).isEqualTo(Path.of("あいうえお\\ほ\\ほげ\\てすとvideofile.m2ts"))
+        }
+    }
 }
