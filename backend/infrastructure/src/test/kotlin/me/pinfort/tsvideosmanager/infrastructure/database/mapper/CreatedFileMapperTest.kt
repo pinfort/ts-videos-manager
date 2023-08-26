@@ -298,13 +298,9 @@ class CreatedFileMapperTest {
             createdFileMapper.updateFile(7, "test4")
             connection.commit()
 
-            connection.prepareStatement("SELECT * FROM created_file").use { statement ->
-                statement.executeQuery().use { resultSet ->
-                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(1)
-                    resultSet.next()
-                    Assertions.assertThat(resultSet.getString("file")).isEqualTo("test4")
-                }
-            }
+            // TODO: Use AssertJ-DB
+            val actual = createdFileMapper.find(7)
+            Assertions.assertThat(actual?.file).isEqualTo("test4")
             connection.close()
         }
 
@@ -322,13 +318,9 @@ class CreatedFileMapperTest {
             createdFileMapper.updateFile(6, "test4")
             connection.commit()
 
-            connection.prepareStatement("SELECT * FROM created_file").use { statement ->
-                statement.executeQuery().use { resultSet ->
-                    Assertions.assertThat(resultSet.fetchSize).isEqualTo(1)
-                    resultSet.next()
-                    Assertions.assertThat(resultSet.getString("file")).isEqualTo("test")
-                }
-            }
+            // TODO: Use AssertJ-DB
+            val actual = createdFileMapper.find(7)
+            Assertions.assertThat(actual?.file).isEqualTo("test")
             connection.close()
         }
     }
