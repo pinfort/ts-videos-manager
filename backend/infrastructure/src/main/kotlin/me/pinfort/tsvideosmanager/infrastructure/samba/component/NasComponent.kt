@@ -4,7 +4,7 @@ import jcifs.SmbResource
 import me.pinfort.tsvideosmanager.infrastructure.samba.client.SambaClient
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
-import kotlin.io.path.Path
+import java.nio.file.Path
 
 @Component
 class NasComponent(
@@ -57,7 +57,7 @@ class NasComponent(
     }
 
     fun createDirectory(file: String, nasType: SambaClient.NasType) {
-        val directory = Path(file).parent.toString()
+        val directory = Path.of(file.replace('\\', '/')).parent.toString()
         when (nasType) {
             SambaClient.NasType.VIDEO_STORE_NAS -> videoStoreNas.resolve(directory.replace('\\', '/')).mkdirs()
             SambaClient.NasType.ORIGINAL_STORE_NAS -> originalStoreNas.resolve(directory.replace('\\', '/')).mkdirs()
