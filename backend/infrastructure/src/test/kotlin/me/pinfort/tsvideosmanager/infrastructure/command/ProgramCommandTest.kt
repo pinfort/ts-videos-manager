@@ -439,4 +439,41 @@ class ProgramCommandTest {
             }
         }
     }
+
+    @Nested
+    inner class MoveCreatedFilesTest {
+        @Test
+        fun success() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { createdFileCommand.move(any(), any(), any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { logger.info(any()) } just Runs
+
+            programCommand.moveCreatedFiles(program, "newFile")
+
+            verifySequence {
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.move(createdFile, "newFile", false)
+                logger.info(any())
+            }
+        }
+
+        @Test
+        fun dryRun() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { createdFileCommand.move(any(), any(), any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { logger.info(any()) } just Runs
+
+            programCommand.moveCreatedFiles(program, "newFile", true)
+
+            verifySequence {
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.move(createdFile, "newFile", true)
+                logger.info(any())
+            }
+        }
+    }
 }

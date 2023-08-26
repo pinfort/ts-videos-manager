@@ -76,4 +76,15 @@ class ProgramCommand(
         }
         logger.info("Delete program, id=${program.id}, program=$program")
     }
+
+    @Transactional
+    fun moveCreatedFiles(program: Program, newFile: String, dryRun: Boolean = false) {
+        val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
+
+        createdFiles.forEach {
+            createdFileCommand.move(createdFileConverter.convert(it), newFile, dryRun)
+        }
+
+        logger.info("Move created files, id=${program.id}, newFile=$newFile, program=$program")
+    }
 }
