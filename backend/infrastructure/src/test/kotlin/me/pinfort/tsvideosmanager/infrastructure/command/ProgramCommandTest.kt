@@ -111,7 +111,7 @@ class ProgramCommandTest {
     private val createdFile = CreatedFile(
         id = 1,
         splittedFileId = 2,
-        file = "file",
+        file = "file\\file1",
         size = 3,
         mime = "mime",
         encoding = "encoding",

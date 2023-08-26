@@ -33,9 +33,9 @@ class Modify(
                 println("You are moving files in program id: ${program.id}, name:${program.name}")
                 val createdFiles = programCommand.videoFiles(program)
                 createdFiles.forEach {
-                    val oldPath = Path.of(it.file)
-                    val newPath = directoryNameComponent.replaceWithGivenDirectoryName(oldPath, newValue)
-                    println("mv $oldPath to $newPath")
+                    val oldPath = Path.of(it.file.replace('\\', '/'))
+                    val newPath = directoryNameComponent.replaceWithGivenDirectoryName(oldPath, newValue).toString().replace('/', '\\')
+                    println("mv ${oldPath.toString().replace('/', '\\')} to $newPath")
                 }
                 val answer = userQuestionComponent.askDefaultFalse("Are you sure to move files?")
                 if (!answer) {

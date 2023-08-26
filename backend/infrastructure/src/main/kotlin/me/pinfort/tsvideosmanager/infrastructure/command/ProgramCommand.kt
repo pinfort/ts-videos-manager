@@ -85,9 +85,9 @@ class ProgramCommand(
         val createdFiles: List<CreatedFileDto> = createdFileMapper.selectByExecutedFileId(program.executedFileId)
 
         createdFiles.forEach {
-            val oldPath = Path.of(it.file)
+            val oldPath = Path.of(it.file.replace('\\', '/'))
             val newPath = directoryNameComponent.replaceWithGivenDirectoryName(oldPath, newDirectory)
-            createdFileCommand.move(createdFileConverter.convert(it), newPath.toString(), dryRun)
+            createdFileCommand.move(createdFileConverter.convert(it), newPath.toString().replace('/', '\\'), dryRun)
         }
 
         logger.info("Move created files, id=${program.id}, newDirectory=$newDirectory, program=$program")
