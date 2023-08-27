@@ -281,4 +281,87 @@ class CreatedFileCommandTest {
             }
         }
     }
+
+    @Nested
+    inner class Move {
+        @Test
+        fun success() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { createdFileMapper.updateFile(any(), any()) } returns 1
+            every { nasComponent.moveResource(createdFile.file, "newFile") } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { logger.info(any()) } just Runs
+
+            val actual = createdFileCommand.move(createdFile, "newFile")
+
+            Assertions.assertThat(actual).isEqualTo(SambaClient.NasType.ORIGINAL_STORE_NAS)
+
+            verifySequence {
+                createdFileMapper.updateFile(1, "newFile")
+                nasComponent.moveResource(createdFile.file, "newFile")
+                logger.info(any())
+            }
+        }
+
+        @Test
+        fun noHit() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { createdFileMapper.updateFile(any(), any()) } returns 1
+            every { nasComponent.moveResource(any(), any()) } throws Exception("err")
+            every { logger.error(any(), any<Exception>()) } just Runs
+
+            Assertions.assertThatThrownBy {
+                createdFileCommand.move(createdFile, "newFile")
+            }
+                .hasMessage("java.lang.Exception: err")
+                .isInstanceOf(Exception::class.java)
+
+            verifySequence {
+                createdFileMapper.updateFile(1, "newFile")
+                nasComponent.moveResource(createdFile.file, "newFile")
+                logger.error("Failed to move file. id=1, file=${createdFile.file}, newFile=newFile, createdFile=$createdFile", any<Exception>())
+            }
+        }
+
+        @Test
+        fun dryRun() {
+            val createdFile = CreatedFile(
+                id = 1,
+                splittedFileId = 2,
+                file = "file",
+                size = 3,
+                mime = "mime",
+                encoding = "encoding",
+                status = CreatedFile.Status.ENCODE_SUCCESS
+            )
+            every { logger.info(any()) } just Runs
+
+            val actual = createdFileCommand.move(createdFile, "newFile", true)
+
+            Assertions.assertThat(actual).isEqualTo(SambaClient.NasType.VIDEO_STORE_NAS)
+
+            verifySequence {
+                logger.info(any())
+            }
+            verify(exactly = 0) {
+                createdFileMapper.updateFile(any(), any())
+                nasComponent.moveResource(any(), any())
+            }
+        }
+    }
 }

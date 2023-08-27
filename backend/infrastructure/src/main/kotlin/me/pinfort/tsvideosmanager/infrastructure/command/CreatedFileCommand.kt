@@ -53,4 +53,22 @@ class CreatedFileCommand(
             throw RuntimeException(e)
         }
     }
+
+    @Transactional
+    fun move(createdFile: CreatedFile, newFile: String, dryRun: Boolean = false): SambaClient.NasType {
+        return try {
+            val movedFrom = if (!dryRun) {
+                createdFileMapper.updateFile(createdFile.id, newFile)
+                nasComponent.moveResource(createdFile.file, newFile)
+            } else {
+                SambaClient.NasType.VIDEO_STORE_NAS
+            }
+            logger.info("Move created file, id=${createdFile.id}, newFile=$newFile, createdFile=$createdFile, movedFrom=$movedFrom")
+            movedFrom
+        } catch (e: Exception) {
+            logger.error("Failed to move file. id=${createdFile.id}, file=${createdFile.file}, newFile=$newFile, createdFile=$createdFile", e)
+            // RuntimeExceptionにしないとロールバック対象にならない
+            throw RuntimeException(e)
+        }
+    }
 }

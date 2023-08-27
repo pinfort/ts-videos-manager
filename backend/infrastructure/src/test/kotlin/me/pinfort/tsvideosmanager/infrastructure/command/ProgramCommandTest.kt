@@ -8,6 +8,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.verify
 import io.mockk.verifySequence
+import me.pinfort.tsvideosmanager.infrastructure.component.DirectoryNameComponent
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.CreatedFileDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.ProgramDto
 import me.pinfort.tsvideosmanager.infrastructure.database.dto.SplittedFileDto
@@ -29,6 +30,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.slf4j.Logger
+import java.nio.file.Path
 import java.time.LocalDateTime
 
 class ProgramCommandTest {
@@ -64,6 +66,9 @@ class ProgramCommandTest {
 
     @MockK
     private lateinit var splittedFileConverter: SplittedFileConverter
+
+    @MockK
+    private lateinit var directoryNameComponent: DirectoryNameComponent
 
     @InjectMockKs
     private lateinit var programCommand: ProgramCommand
@@ -106,7 +111,7 @@ class ProgramCommandTest {
     private val createdFile = CreatedFile(
         id = 1,
         splittedFileId = 2,
-        file = "file",
+        file = "file\\file1",
         size = 3,
         mime = "mime",
         encoding = "encoding",
@@ -435,6 +440,45 @@ class ProgramCommandTest {
             verify(exactly = 0) {
                 programMapper.deleteById(program.id)
                 executedFileCommand.delete(executedFile, true)
+                logger.info(any())
+            }
+        }
+    }
+
+    @Nested
+    inner class MoveCreatedFilesTest {
+        @Test
+        fun success() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { createdFileCommand.move(any(), any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { logger.info(any()) } just Runs
+            every { directoryNameComponent.replaceWithGivenDirectoryName(any(), any()) } returns Path.of("newPath")
+
+            programCommand.moveCreatedFiles(program, "newDirectory")
+
+            verifySequence {
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.move(createdFile, "newPath")
+                logger.info(any())
+            }
+        }
+
+        @Test
+        fun dryRun() {
+            every { createdFileMapper.selectByExecutedFileId(any()) } returns listOf(createdFileDto)
+            every { createdFileConverter.convert(any()) } returns createdFile
+            every { createdFileCommand.move(any(), any(), any()) } returns SambaClient.NasType.ORIGINAL_STORE_NAS
+            every { logger.info(any()) } just Runs
+            every { directoryNameComponent.replaceWithGivenDirectoryName(any(), any()) } returns Path.of("newPath")
+
+            programCommand.moveCreatedFiles(program, "newDirectory", true)
+
+            verifySequence {
+                createdFileMapper.selectByExecutedFileId(program.executedFileId)
+                createdFileConverter.convert(createdFileDto)
+                createdFileCommand.move(createdFile, "newPath", true)
                 logger.info(any())
             }
         }

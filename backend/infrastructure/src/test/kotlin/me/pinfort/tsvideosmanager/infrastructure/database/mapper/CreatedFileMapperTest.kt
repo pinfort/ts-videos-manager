@@ -283,6 +283,49 @@ class CreatedFileMapperTest {
     }
 
     @Nested
+    inner class UpdateFileTest {
+        @Test
+        fun success() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM created_file").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,1,'test',3,'test2','test3','REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            createdFileMapper.updateFile(7, "test4")
+            connection.commit()
+
+            // TODO: Use AssertJ-DB
+            val actual = createdFileMapper.find(7)
+            Assertions.assertThat(actual?.file).isEqualTo("test4")
+            connection.close()
+        }
+
+        @Test
+        fun nothingHasUpdated() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM created_file").execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO created_file(id,splitted_file_id,file,size,mime,encoding,status) VALUES(7,1,'test',3,'test2','test3','REGISTERED');
+            """
+            ).execute()
+            connection.commit()
+
+            createdFileMapper.updateFile(6, "test4")
+            connection.commit()
+
+            // TODO: Use AssertJ-DB
+            val actual = createdFileMapper.find(7)
+            Assertions.assertThat(actual?.file).isEqualTo("test")
+            connection.close()
+        }
+    }
+
+    @Nested
     inner class DeleteTest {
         @Test
         fun success() {
