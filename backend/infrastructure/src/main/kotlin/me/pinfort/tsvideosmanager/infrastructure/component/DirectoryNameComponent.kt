@@ -20,7 +20,7 @@ class DirectoryNameComponent(
      * @param path 現在のフルパス ex. example/f/foo/bar.m2ts
      * @param directoryName 置き換えるディレクトリ名 ex. hoge
      *
-     * @return 置き換えたフルパス ex. example/h/hoge/baz.m2ts
+     * @return 置き換えたフルパス ex. example/h/hoge/bar.m2ts
      */
     fun replaceWithGivenDirectoryName(path: Path, directoryName: String): Path {
         val normalizedProgramDirectoryName = normalizeNameComponent.normalize(directoryName)
