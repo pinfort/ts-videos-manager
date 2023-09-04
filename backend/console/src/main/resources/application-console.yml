@@ -2,6 +2,7 @@ spring:
   main:
     web-application-type: none
     banner-mode: "off"
+    lazy-initialization: true
 logging:
   level:
     root: warn
