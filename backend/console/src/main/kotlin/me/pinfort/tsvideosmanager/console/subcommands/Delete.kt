@@ -4,6 +4,7 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
 import kotlinx.cli.default
+import kotlinx.cli.vararg
 import me.pinfort.tsvideosmanager.console.component.UserQuestionComponent
 import me.pinfort.tsvideosmanager.infrastructure.command.CreatedFileCommand
 import me.pinfort.tsvideosmanager.infrastructure.command.ProgramCommand
@@ -17,7 +18,7 @@ class Delete(
     private val createdFileCommand: CreatedFileCommand
 ) : Subcommand("delete", "delete resources") {
     private val targetType by argument(ArgType.Choice<TargetType>(), "targetType", "type of target resource")
-    private val id by argument(ArgType.Int, "id", "id of resource to delete. if ts_files, program id.")
+    private val ids by argument(ArgType.Int, "ids", "ids of resource to delete. if ts_files, program id.").vararg()
     private val dryRun by option(ArgType.Boolean, "dryRun", "d").default(false)
 
     enum class TargetType {
@@ -30,13 +31,15 @@ class Delete(
             println("in dry run mode.")
         }
 
-        when (targetType) {
-            TargetType.PROGRAM -> deleteProgram()
-            TargetType.TS_FILES -> deleteTsFiles()
+        ids.forEach {
+            when (targetType) {
+                TargetType.PROGRAM -> deleteProgram(it)
+                TargetType.TS_FILES -> deleteTsFiles(it)
+            }
         }
     }
 
-    private fun deleteProgram() {
+    private fun deleteProgram(id: Int) {
         val targetProgram = programCommand.find(id.toLong()) ?: return println("program not found")
 
         println("program ready to delete:$targetProgram")
@@ -49,7 +52,7 @@ class Delete(
         println("program deleted")
     }
 
-    private fun deleteTsFiles() {
+    private fun deleteTsFiles(id: Int) {
         val targetProgram = programCommand.findDetail(id.toLong()) ?: return println("program not found")
 
         val targetFiles = targetProgram.createdFiles.filter { it.isTs }
