@@ -68,4 +68,28 @@ interface ProgramMapper {
         """
     )
     fun deleteById(id: Long)
+
+    @Select(
+        """
+            SELECT
+                pg.id,
+                pg.name,
+                pg.executed_file_id,
+                pg.status,
+                ex.drops,
+                ex.size,
+                ex.recorded_at,
+                ex.channel,
+                ex.title,
+                ex.channelName,
+                ex.duration
+            FROM
+                program pg
+                LEFT OUTER JOIN executed_file ex
+                    ON pg.executed_file_id = ex.id
+            WHERE
+                pg.executed_file_id = #{executedFileId}
+        """
+    )
+    fun findByExecutedFileId(executedFileId: Long): ProgramDto?
 }
