@@ -37,4 +37,25 @@ interface ExecutedFileMapper {
         """
     )
     fun delete(id: Long)
+
+    @Select(
+        """
+            SELECT
+                id,
+                file,
+                drops,
+                size,
+                recorded_at,
+                channel,
+                title,
+                channelName,
+                duration,
+                status
+            FROM
+                executed_file
+            WHERE
+                file = #{file}
+        """
+    )
+    fun selectByFile(file: String): List<ExecutedFileDto>
 }

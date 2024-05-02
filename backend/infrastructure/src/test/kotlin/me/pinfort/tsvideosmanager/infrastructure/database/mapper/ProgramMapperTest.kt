@@ -288,4 +288,68 @@ class ProgramMapperTest {
             connection.close()
         }
     }
+
+    @Nested
+    inner class FindByExecutedFileIdTest {
+        @Test
+        fun single() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+            connection.prepareStatement(
+                """
+            INSERT INTO program(id,name,executed_file_id,status) VALUES(1,'test',1,'REGISTERED');
+        """
+            ).execute()
+            connection.prepareStatement(
+                """
+            INSERT INTO program(id,name,executed_file_id,status) VALUES(2,'esta',2,'REGISTERED');
+        """
+            ).execute()
+            connection.prepareStatement(
+                """
+            INSERT INTO program(id,name,executed_file_id,status) VALUES(3,'aest',3,'REGISTERED');
+        """
+            ).execute()
+            connection.prepareStatement(
+                """
+                INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
+                """.trimIndent()
+            ).execute()
+            connection.commit()
+
+            val actual = programMapper.findByExecutedFileId(1)
+            connection.close()
+
+            Assertions.assertThat(actual).isEqualTo(
+                ProgramDto(
+                    1,
+                    "test",
+                    1,
+                    ProgramDto.Status.REGISTERED,
+                    0,
+                    2,
+                    LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    "BSxx",
+                    "myTitle",
+                    "myChannel",
+                    3.0
+                )
+            )
+        }
+
+        @Test
+        fun none() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM program").execute()
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+            connection.commit()
+
+            val actual = programMapper.findByExecutedFileId(1)
+            connection.close()
+
+            Assertions.assertThat(actual).isNull()
+        }
+    }
 }

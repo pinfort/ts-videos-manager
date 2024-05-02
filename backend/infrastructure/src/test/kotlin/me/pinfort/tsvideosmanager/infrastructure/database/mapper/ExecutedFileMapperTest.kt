@@ -64,17 +64,14 @@ class ExecutedFileMapperTest {
 
         @Test
         fun none() {
-            @Test
-            fun none() {
-                val connection = dataSource.connection
-                connection.prepareStatement("DELETE FROM executed_file").execute()
-                connection.commit()
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+            connection.commit()
 
-                val actual = executedFileMapper.find(1)
-                connection.close()
+            val actual = executedFileMapper.find(1)
+            connection.close()
 
-                Assertions.assertThat(actual).isNull()
-            }
+            Assertions.assertThat(actual).isNull()
         }
     }
 
@@ -119,6 +116,54 @@ class ExecutedFileMapperTest {
                 }
             }
             connection.close()
+        }
+    }
+
+    @Nested
+    inner class SelectByFileTest {
+        @Test
+        fun success() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+
+            connection.prepareStatement(
+                """
+                    INSERT INTO executed_file(id,file,drops,`size`,recorded_at,channel,title,channelName,duration,status)
+                    VALUES(1,'filepath',0,2,cast('2009-08-03 23:58:01' as datetime),'BSxx','myTitle','myChannel',3,'SPLITTED');
+                """.trimIndent()
+            ).execute()
+            connection.commit()
+
+            val actual = executedFileMapper.selectByFile("filepath")
+            connection.close()
+
+            Assertions.assertThat(actual.size).isEqualTo(1)
+            Assertions.assertThat(actual[0]).isEqualTo(
+                ExecutedFileDto(
+                    id = 1,
+                    file = "filepath",
+                    drops = 0,
+                    size = 2,
+                    recordedAt = LocalDateTime.of(2009, 8, 3, 23, 58, 1),
+                    channel = "BSxx",
+                    title = "myTitle",
+                    channelName = "myChannel",
+                    duration = 3.0,
+                    status = ExecutedFileDto.Status.SPLITTED
+                )
+            )
+        }
+
+        @Test
+        fun none() {
+            val connection = dataSource.connection
+            connection.prepareStatement("DELETE FROM executed_file").execute()
+            connection.commit()
+
+            val actual = executedFileMapper.selectByFile("filepath")
+            connection.close()
+
+            Assertions.assertThat(actual.size).isEqualTo(0)
         }
     }
 }
