@@ -239,9 +239,9 @@ docker run -p 8080:8080 \
 ## Key Technologies
 
 - **Kotlin 1.9.25** with Spring compiler plugin
-- **Spring Boot 2.6.6** (javax, not jakarta)
+- **Spring Boot 3.3.13** (jakarta namespace)
 - **Java 17** target
-- **MyBatis 2.2.2** with inline SQL annotations
+- **MyBatis 3.0.4** with inline SQL annotations
 - **Gradle 8.12** (compatible version for Spring Boot 2.6.6)
 - **jcifs-ng 2.1.8** for Samba/SMB
 - **kotlinx-cli 0.3.5** for CLI parsing
@@ -250,8 +250,8 @@ docker run -p 8080:8080 \
 
 ## Important Notes
 
-- Gradle 9.x is not compatible with this project's Spring Boot 2.6.6 version. Stay on Gradle 8.x.
-- The project uses `javax` packages (not `jakarta`), so it's not compatible with Spring Boot 3.x yet.
+- Gradle 9.x is not compatible with this project. Stay on Gradle 8.x.
+- The project uses `jakarta` packages (Spring Boot 3.x).
 - Auto-commit is disabled in the datasource configuration - ensure proper transaction management.
 - Shell execution features are Windows-specific and will be skipped on other platforms.
 - TestContainers requires Docker to be running for infrastructure tests.
