@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     restart: always
-    image: mariadb:10.7
+    image: mariadb:11.8
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "test"
@@ -20,7 +20,7 @@ services:
       retries: 3
   redis:
     restart: always
-    image: redis:6.2
+    image: redis:8.6
     ports:
       - "127.0.0.1:6739:6379"
     volumes:
