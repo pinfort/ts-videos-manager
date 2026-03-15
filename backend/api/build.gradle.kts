@@ -6,7 +6,7 @@ dependencies {
     testImplementation("org.testcontainers:mariadb")
 }
 
-extra["testcontainersVersion"] = "1.17.1"
+extra["testcontainersVersion"] = "1.19.8"
 
 dependencyManagement {
     imports {
