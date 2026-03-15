@@ -242,7 +242,7 @@ docker run -p 8080:8080 \
 - **Spring Boot 3.3.13** (jakarta namespace)
 - **Java 17** target
 - **MyBatis 3.0.4** with inline SQL annotations
-- **Gradle 8.12** (compatible version for Spring Boot 2.6.6)
+- **Gradle 8.12**
 - **jcifs-ng 2.1.8** for Samba/SMB
 - **kotlinx-cli 0.3.5** for CLI parsing
 - **TestContainers** for integration testing
