@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk
 
-RUN microdnf install findutils
+RUN apt-get -y install findutils
 
 COPY . .
 
