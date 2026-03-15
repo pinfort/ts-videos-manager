@@ -1,4 +1,4 @@
-FROM node:16.14-slim as build
+FROM node:lts-slim as build
 
 WORKDIR /opt/app
 
@@ -8,7 +8,7 @@ RUN yarn install --pure-lockfile
 COPY . .
 RUN yarn build
 
-FROM nginx:1.21
+FROM nginx:stable
 
 COPY --from=build /opt/app/build /var/www/html
 

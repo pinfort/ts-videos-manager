@@ -1,4 +1,4 @@
-FROM openjdk:17.0-jdk
+FROM eclipse-temurin:17-jdk
 
 RUN microdnf install findutils
 
