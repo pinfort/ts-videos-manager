@@ -3,6 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ts-videos-manager.iml" filepath="$PROJECT_DIR$/.idea/ts-videos-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tsvideosmanager.iml" filepath="$PROJECT_DIR$/.idea/modules/tsvideosmanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.iml" filepath="$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/api/tsvideosmanager.api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/console/tsvideosmanager.console.iml" filepath="$PROJECT_DIR$/.idea/modules/console/tsvideosmanager.console.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/tsvideosmanager.infrastructure.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/tsvideosmanager.infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/tsvideosmanager.infrastructure.test.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/tsvideosmanager.infrastructure.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tsvideosmanager.main.iml" filepath="$PROJECT_DIR$/.idea/modules/tsvideosmanager.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tsvideosmanager.test.iml" filepath="$PROJECT_DIR$/.idea/modules/tsvideosmanager.test.iml" />
     </modules>
   </component>
 </project>
