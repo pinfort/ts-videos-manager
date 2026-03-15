@@ -238,7 +238,7 @@ docker run -p 8080:8080 \
 
 ## Key Technologies
 
-- **Kotlin 1.8.20** with Spring compiler plugin
+- **Kotlin 1.9.25** with Spring compiler plugin
 - **Spring Boot 2.6.6** (javax, not jakarta)
 - **Java 17** target
 - **MyBatis 2.2.2** with inline SQL annotations
