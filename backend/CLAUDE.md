@@ -198,7 +198,7 @@ Configuration files are located in each module's `src/main/resources/`:
 @Testcontainers
 class ProgramMapperTest {
     @Container
-    val mariadb = MariaDBContainer<Nothing>("mariadb:10.7")
+    val mariadb = MariaDBContainer<Nothing>("mariadb:11.8")
 
     @DynamicPropertySource
     fun properties(registry: DynamicPropertyRegistry) {
